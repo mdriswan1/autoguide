@@ -38,7 +38,7 @@ public class FrontController extends HttpServlet {
 		}
 		
 		//login or signup object 
-		ServiceConfig confiq=ServiceFactory.map.get(input);
+//		ServiceConfig confiq=ServiceFactory.map.get(input);
 		Service service=ServiceFactory.getInstance(input);
 		insert =service.execute(request,response);
 		
@@ -48,7 +48,7 @@ public class FrontController extends HttpServlet {
 		
 		
 		//get success and failure in serviceConfiq object
-//		ServiceConfig confiq=ServiceFactory.map.get(input);
+		ServiceConfig confiq=ServiceFactory.map.get(input);
 		
 		
 		if(insert) {
