@@ -8,12 +8,12 @@ public class GetColumnService {
 	}
 	
 	
-	public static String getVehicleManufacturer() {
-		return GetColumnsDAO.getVehicleManufacturer();
+	public static String getVehicleManufacturer(String vehicle_type) {
+		return GetColumnsDAO.getVehicleManufacturer(vehicle_type);
 	}
 	
 	
-	public static String getVehicleModel() {
-		return GetColumnsDAO.getVehicleModel();
+	public static String getVehicleModel(String manufacturer) {
+		return GetColumnsDAO.getVehicleModel(manufacturer);
 	}
 }

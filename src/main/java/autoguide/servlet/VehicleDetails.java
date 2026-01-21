@@ -7,7 +7,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -37,10 +39,29 @@ public class VehicleDetails extends HttpServlet {
 		response.setContentType("application/json");
 		PrintWriter print=response.getWriter();
 		String path=request.getPathInfo();
+		
+		String[] paths=path.split("/");
+		System.out.println(Arrays.toString(paths));
 		if("".equals(path)||"/".equals(path)||path.equals(null)) {
 			String json=VehicleDetailsService.vehicleDetails();
 			print.write(json);
 		}
+		else if("vehicletype".equals(paths[1])) {
+			print.write(GetColumnService.getVehicleType());
+		}else if("manufacturer".equals(paths[1])) {
+			String type=paths[2];
+			System.out.println(type);
+			print.write(GetColumnService.getVehicleManufacturer(type));
+		}else if("model_name".equals(paths[1])) {
+			String type=paths[2];
+			System.out.println(type);
+			print.write(GetColumnService.getVehicleModel(type));
+		}
+			
+			
+			
+			
+		
 	}
 
 	/**
