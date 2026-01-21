@@ -23,51 +23,55 @@ import autoguide.service.VehicleDetailsService;
 @WebServlet("/api/vehicledetails/*")
 public class VehicleDetails extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public VehicleDetails() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("application/json");
-		PrintWriter print=response.getWriter();
-		String path=request.getPathInfo();
-		
-		String[] paths=path.split("/");
-		System.out.println(Arrays.toString(paths));
-		if("".equals(path)||"/".equals(path)||path.equals(null)) {
-			String json=VehicleDetailsService.vehicleDetails();
-			print.write(json);
-		}
-		else if("vehicletype".equals(paths[1])) {
-			print.write(GetColumnService.getVehicleType());
-		}else if("manufacturer".equals(paths[1])) {
-			String type=paths[2];
-			System.out.println(type);
-			print.write(GetColumnService.getVehicleManufacturer(type));
-		}else if("model_name".equals(paths[1])) {
-			String type=paths[2];
-			System.out.println(type);
-			print.write(GetColumnService.getVehicleModel(type));
-		}
-			
-			
-			
-			
-		
+	public VehicleDetails() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.setContentType("application/json");
+		PrintWriter print = response.getWriter();
+		String path = request.getPathInfo();
+
+		String[] paths = path.split("/");
+		System.out.println(Arrays.toString(paths));
+		if ("".equals(path) || "/".equals(path) || path.equals(null)) {
+			String json = VehicleDetailsService.vehicleDetails();
+			print.write(json);
+		} else if ("vehicletype".equals(paths[1])) {
+			print.write(GetColumnService.getVehicleType());
+		} else if ("manufacturer".equals(paths[1])) {
+			String type = paths[2];
+			System.out.println(type);
+			print.write(GetColumnService.getVehicleManufacturer(type));
+		} else if ("model_name".equals(paths[1])) {
+			String type = paths[2];
+			System.out.println(type);
+			print.write(GetColumnService.getVehicleModel(type));
+		}else if("getvehicle".equals(paths[1])) {
+			String type = paths[2];
+			System.out.println(type);
+			String json = VehicleDetailsService.vehicleDetails(type);
+			print.write(json);
+		}
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
