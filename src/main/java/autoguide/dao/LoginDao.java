@@ -11,6 +11,7 @@ public class LoginDao{
 	
 	public static boolean userValidate(String email,String password) {
 		
+		
 		try(Connection con=CreateConnection.getConnection();PreparedStatement ps=con.prepareStatement("select email,password from users where email=?")){
 			ps.setString(1, email);
 			ResultSet rs=ps.executeQuery();

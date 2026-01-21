@@ -2,19 +2,24 @@ package autoguide.servlet;
 
 import java.io.IOException;
 
+import org.apache.catalina.Session;
+
 import autoguide.service.Service;
 import autoguide.service.ServiceConfig;
 import autoguide.service.ServiceFactory;
+import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebInitParam;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class FrontController
  */
-@WebServlet("/controller")
+@WebServlet(urlPatterns ={"/controller"},initParams = {@WebInitParam(name="max", value="3")})
 public class FrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -31,6 +36,14 @@ public class FrontController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		boolean insert=false;
+		
+		HttpSession session= request.getSession();
+		ServletConfig servletConfig=getServletConfig();
+		int max=Integer.parseInt(servletConfig.getInitParameter("max"));
+		
+	
+		//session.setAttribute("loginCount","0" );
+		int count=(session.getAttribute("loginCount")==null)?0:(int) session.getAttribute("loginCount");
 		// input from jsp
 		String input=request.getParameter("input");
 		if(input==null) {
@@ -56,9 +69,24 @@ public class FrontController extends HttpServlet {
 			String forward=confiq.getSuccess();
 			request.getRequestDispatcher(forward).forward(request, response);
 		}else {
-			request.setAttribute("error","invalid user");
-			String forward=confiq.getFailure();
-			request.getRequestDispatcher(forward).forward(request, response);
+			
+			if(input.equals("login")) {
+				
+				session.setAttribute("loginCount", count+1);
+				System.out.println(count);
+			}
+			if(input.equals("login")&&count>=max) {
+				
+				request.setAttribute("error","you reached max attempts");
+				String forward=confiq.getFailure();
+				request.getRequestDispatcher(forward).forward(request, response);
+				
+			}else {
+				request.setAttribute("error","invalid user");
+				String forward=confiq.getFailure();
+				request.getRequestDispatcher(forward).forward(request, response);
+			}
+			
 		}
 	
 }
