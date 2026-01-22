@@ -43,7 +43,7 @@ public class FrontController extends HttpServlet {
 		
 	
 		//session.setAttribute("loginCount","0" );
-		int count=(session.getAttribute("loginCount")==null)?0:(int) session.getAttribute("loginCount");
+		int count=(session.getAttribute("loginCount")==null)?1:(int) session.getAttribute("loginCount");
 		// input from jsp
 		String input=request.getParameter("input");
 		if(input==null) {
@@ -65,9 +65,20 @@ public class FrontController extends HttpServlet {
 		
 		
 		if(insert) {
-			System.out.println("login successfully ");
-			String forward=confiq.getSuccess();
-			request.getRequestDispatcher(forward).forward(request, response);
+			System.out.println(count +"inside");
+			if(input.equals("signup")) {
+				System.out.println("signup successfully ");
+				String forward=confiq.getSuccess();
+				request.getRequestDispatcher(forward).forward(request, response);
+			}else if(input.equals("login")&&count<=max) {
+				System.out.println("login successfully ");
+				String forward=confiq.getSuccess();
+				request.getRequestDispatcher(forward).forward(request, response);
+			}else if(input.equals("login")) {
+				request.setAttribute("error","you reached max attempts and your are blocked");
+				String forward=confiq.getFailure();
+				request.getRequestDispatcher(forward).forward(request, response);
+			}
 		}else {
 			
 			if(input.equals("login")) {
@@ -76,8 +87,7 @@ public class FrontController extends HttpServlet {
 				System.out.println(count);
 			}
 			if(input.equals("login")&&count>=max) {
-				
-				request.setAttribute("error","you reached max attempts");
+				request.setAttribute("error","you reached max attempts and your are blocked");
 				String forward=confiq.getFailure();
 				request.getRequestDispatcher(forward).forward(request, response);
 				

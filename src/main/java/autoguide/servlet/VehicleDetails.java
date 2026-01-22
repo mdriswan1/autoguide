@@ -41,8 +41,9 @@ public class VehicleDetails extends HttpServlet {
 		response.setContentType("application/json");
 		PrintWriter print = response.getWriter();
 		String path = request.getPathInfo();
-
-		String[] paths = path.split("/");
+		String[] paths= {};
+		if(path!=null)
+			paths = path.split("/");
 		System.out.println(Arrays.toString(paths));
 		if ("".equals(path) || "/".equals(path) || path.equals(null)) {
 			String json = VehicleDetailsService.vehicleDetails();

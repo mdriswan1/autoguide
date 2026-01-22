@@ -33,6 +33,7 @@ public class VehicleDetailsDao {
 			}
 			Gson gson=new Gson();
 			String json=gson.toJson(all);
+			System.out.println(json);
 			return json;
 			
 			
@@ -64,6 +65,7 @@ public class VehicleDetailsDao {
 				}
 				Gson gson=new Gson();
 				String json=gson.toJson(all);
+				System.out.println(json);
 				return json;
 				
 				

@@ -116,7 +116,7 @@
                     // Display up to 2 vehicles
                     for (let i = 0; i < Math.min(data.length, 2); i++) {
                         let v = data[i];
-
+						console.log(data);
                         // create card element
                         let card = document.createElement('div');
                         card.className = 'vehicle-card';

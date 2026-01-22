@@ -18,7 +18,6 @@ public class AllVehicleDetails {
 		this.vehicle_image = vehicle_image;
 		this.vehicle_type = vehicle_type;
 		this.vehicle_name = vehicle_name;
-		
 		this.year = year;
 		this.seat_capacity = seat_capacity;
 		this.engine_capacity = engine_capacity;
