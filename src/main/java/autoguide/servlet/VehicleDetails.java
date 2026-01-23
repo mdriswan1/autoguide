@@ -86,11 +86,12 @@ public class VehicleDetails extends HttpServlet {
 		} else if ("getvehicle".equals(paths[1])) {
 			// if the path contain getvehicle as a value we will return the details of vehicle as
 			// String as a json format
-			String type = paths[2];
+			String manu = paths[2];
+			String model=paths[3];
 			
-			logger.debug("load all vehicle   depends on model_name  "+ type);
-			System.out.println(type);
-			String json = VehicleDetailsService.vehicleDetails(type);
+			logger.debug("load all vehicle   depends on model_name  "+ model);
+			System.out.println(model);
+			String json = VehicleDetailsService.vehicleDetails(manu,model);
 			print.write(json);
 		}
 

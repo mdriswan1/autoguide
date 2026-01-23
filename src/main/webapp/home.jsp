@@ -180,23 +180,23 @@ document.getElementById("manufacturer").addEventListener("change", function () {
 /* ---------------- FILTER BUTTON ---------------- */
 function getVehicleDetails() {
     const model = document.getElementById("model").value;
+    const manu = document.getElementById("manufacturer").value;
 
-    if (!model) {
+    if (!manu || !model) {
         loadAllVehicles();
         return;
     }
 
-    fetch('http://localhost:8080/autoguide/api/vehicledetails/getvehicle/' + encodeURIComponent(model))
-        .then(resp => resp.json())
-        .then(data => {
-        	
-        	console.log(data);
-        	
-            populateCards(Array.isArray(data) ? data : [data]);
-            
-        })
-        .catch(err => console.error("Error loading vehicle details:", err));
+    fetch(
+        'http://localhost:8080/autoguide/api/vehicledetails/getvehicle/' +
+        encodeURIComponent(manu) + '/' +
+        encodeURIComponent(model)
+    )
+    .then(resp => resp.json())
+    .then(data => populateCards(data))
+    .catch(err => console.error(err));
 }
+
 
 /* ---------------- RENDER VEHICLE CARDS ---------------- */
 function populateCards(data) {
