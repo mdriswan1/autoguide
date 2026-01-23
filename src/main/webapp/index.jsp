@@ -108,7 +108,7 @@
     <!-- JavaScript to fetch API -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            fetch('api/welcome')
+            fetch('api/vehicledetails/welcome')
                 .then(response => response.json())
                 .then(data => {
                     let container = document.getElementById('vehiclesContainer');

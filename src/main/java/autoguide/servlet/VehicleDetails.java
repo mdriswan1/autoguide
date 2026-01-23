@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import autoguide.service.GetColumnService;
 import autoguide.service.VehicleDetailsService;
 
+
 /**
  * Servlet implementation class VehicleDetails this servlet class is used for
  * load data from the database sends json as a response
@@ -93,6 +94,10 @@ public class VehicleDetails extends HttpServlet {
 			System.out.println(model);
 			String json = VehicleDetailsService.vehicleDetails(manu,model);
 			print.write(json);
+		}else if("welcome".equals(paths[1])) {
+			PrintWriter pw=response.getWriter();
+			String json=VehicleDetailsService.getWelcomeDetails();
+			pw.write(json);
 		}
 
 	}

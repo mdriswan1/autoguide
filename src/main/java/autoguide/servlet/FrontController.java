@@ -2,7 +2,6 @@ package autoguide.servlet;
 
 import java.io.IOException;
 
-import org.apache.catalina.Session;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import autoguide.service.Service;
@@ -59,7 +58,7 @@ public class FrontController extends HttpServlet {
 		}
 		
 		//login or signup object 
-//		ServiceConfig confiq=ServiceFactory.map.get(input);
+		//ServiceConfig confiq=ServiceFactory.map.get(input);
 		Service service=ServiceFactory.getInstance(input);
 		logger.debug("user try to "+ input);
 		insert =service.execute(request,response);
@@ -119,6 +118,7 @@ public class FrontController extends HttpServlet {
 				
 			}else {
 				//if invalid user
+				logger.debug("invalid user forward to the login page, again to login ");
 				request.setAttribute("error","invalid user");
 				String forward=confiq.getFailure();
 				request.getRequestDispatcher(forward).forward(request, response);
