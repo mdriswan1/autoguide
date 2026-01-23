@@ -25,7 +25,7 @@ public class VehicleDetailsDao {
 					image = Base64.getEncoder().encodeToString(rs.getBytes("image_data"));
 				}
 				AllVehicleDetails v = new AllVehicleDetails(image, rs.getString("type_name"),
-						rs.getString("model_name"), rs.getInt("year_of_manuf"), rs.getInt("seating_capacity"),
+						rs.getString("model_name"),rs.getString("fuel_type"), rs.getInt("year_of_manuf"), rs.getInt("seating_capacity"),
 						rs.getString("engine_capacity"), rs.getInt("length_mm"), rs.getInt("width_mm"),
 						rs.getInt("height_mm"), rs.getString("description"));
 				all.add(v);
@@ -57,7 +57,7 @@ public class VehicleDetailsDao {
 						image = Base64.getEncoder().encodeToString(rs.getBytes("image_data"));
 					}
 					AllVehicleDetails v = new AllVehicleDetails(image, rs.getString("type_name"),
-							rs.getString("model_name"), rs.getInt("year_of_manuf"), rs.getInt("seating_capacity"),
+							rs.getString("model_name"),rs.getString("fuel_type"), rs.getInt("year_of_manuf"), rs.getInt("seating_capacity"),
 							rs.getString("engine_capacity"), rs.getInt("length_mm"), rs.getInt("width_mm"),
 							rs.getInt("height_mm"), rs.getString("description"));
 					all.add(v);

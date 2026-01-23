@@ -4,20 +4,25 @@ public class AllVehicleDetails {
 	String vehicle_image;
 	String vehicle_type;
 	String vehicle_name;
+	String fuel_type;
 	int year;
+
 	int seat_capacity;
 	String engine_capacity;
 	int length_mm;
 	int width_mm;
 	int height_mm;
+	
 	String description;
-	public AllVehicleDetails(String vehicle_image, String vehicle_type, String vehicle_name,
+	public AllVehicleDetails(String vehicle_image, String vehicle_type, String vehicle_name,String fuel_type,
 			int year, int seat_capacity, String engine_capacity, int length_mm, int width_mm, int height_mm,
 			String description) {
 		super();
 		this.vehicle_image = vehicle_image;
 		this.vehicle_type = vehicle_type;
 		this.vehicle_name = vehicle_name;
+		this.fuel_type=fuel_type;
+		
 		this.year = year;
 		this.seat_capacity = seat_capacity;
 		this.engine_capacity = engine_capacity;
@@ -25,6 +30,12 @@ public class AllVehicleDetails {
 		this.width_mm = width_mm;
 		this.height_mm = height_mm;
 		this.description = description;
+	}
+	public String getFuel_type() {
+		return fuel_type;
+	}
+	public void setFuel_type(String fuel_type) {
+		this.fuel_type = fuel_type;
 	}
 	public String getVehicle_image() {
 		return vehicle_image;

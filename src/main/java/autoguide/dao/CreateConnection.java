@@ -9,7 +9,7 @@ import javax.sql.DataSource;
 
 public class CreateConnection {
 	public static Connection getConnection() {
-		InitialContext context;
+//		InitialContext context;
 		Connection connection=null;
 		try {
 			Class.forName("org.postgresql.Driver");
@@ -18,11 +18,11 @@ public class CreateConnection {
 			e.printStackTrace();
 		}
 		try {
-			context = new InitialContext();
-			DataSource dataSource=(DataSource) context.lookup("java:comp/env/jdbc/autoguide");
-				connection = dataSource.getConnection();
+//			context = new InitialContext();
+//			DataSource dataSource=(DataSource) context.lookup("java:comp/env/jdbc/autoguide");
+				connection = HikariConnection.getDataSource().getConnection();
 			
-		} catch (NamingException |SQLException e) {
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

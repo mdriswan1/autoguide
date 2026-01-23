@@ -12,17 +12,23 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.google.gson.Gson;
 
 import autoguide.service.GetColumnService;
 import autoguide.service.VehicleDetailsService;
 
 /**
- * Servlet implementation class VehicleDetails
+ * Servlet implementation class VehicleDetails this servlet class is used for
+ * load data from the database sends json as a response
+ * 
  */
 @WebServlet("/api/vehicledetails/*")
 public class VehicleDetails extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final Logger logger=LogManager.getLogger(VehicleDetails.class);
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -38,28 +44,51 @@ public class VehicleDetails extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// in this class we only retuen the response as json so we declared it as
+		// application/json to inform
 		response.setContentType("application/json");
 		PrintWriter print = response.getWriter();
 		String path = request.getPathInfo();
-		String[] paths= {};
-		if(path!=null)
+		String[] paths = {};
+		if (path != null)
+			// if the path is not null then we divide the path depends the path give the
+			// results
 			paths = path.split("/");
 		System.out.println(Arrays.toString(paths));
+
 		if ("".equals(path) || "/".equals(path) || path.equals(null)) {
+			logger.debug("load all vehicle details ");
+			// if the path is empty or null to load the entire vehicle details
 			String json = VehicleDetailsService.vehicleDetails();
+			// return the details as a json(response)
 			print.write(json);
 		} else if ("vehicletype".equals(paths[1])) {
+			logger.debug("load all vehicle types ");
+			// if the path contain vehicletype as a value we will return the vehicle type as
+			// String as a json format
 			print.write(GetColumnService.getVehicleType());
 		} else if ("manufacturer".equals(paths[1])) {
 			String type = paths[2];
+			logger.debug("load all vehicle manufacturer depends on vehicle type "+type);
+			// if the path contain manufacturer as a value we will return the manufacturer details as
+						// String as a json format
+			
 			System.out.println(type);
 			print.write(GetColumnService.getVehicleManufacturer(type));
 		} else if ("model_name".equals(paths[1])) {
 			String type = paths[2];
+			logger.debug("load all vehicle  model_name depends on manufacturer  "+ type);
+			// if the path contain model_name as a value we will return the models as
+			// String as a json format
+			
 			System.out.println(type);
 			print.write(GetColumnService.getVehicleModel(type));
-		}else if("getvehicle".equals(paths[1])) {
+		} else if ("getvehicle".equals(paths[1])) {
+			// if the path contain getvehicle as a value we will return the details of vehicle as
+			// String as a json format
 			String type = paths[2];
+			
+			logger.debug("load all vehicle   depends on model_name  "+ type);
 			System.out.println(type);
 			String json = VehicleDetailsService.vehicleDetails(type);
 			print.write(json);

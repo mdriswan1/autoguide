@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class SignupDao {
+	
 	public static boolean createUser(String fullname,String email,String password,String city) {
 		try(Connection connection=CreateConnection.getConnection();PreparedStatement preparedStatement=connection.prepareStatement("insert into users(full_name,email,password,city,created_at) values(?,?,?,?,?)")){
 			preparedStatement.setString(1,fullname);
@@ -23,6 +24,7 @@ public class SignupDao {
 			return false;
 		}catch(Exception e) {
 			e.printStackTrace();
+			
 			return false;
 		}
 	}

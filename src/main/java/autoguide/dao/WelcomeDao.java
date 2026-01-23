@@ -15,15 +15,15 @@ import autoguide.util.Welcome;
 public class WelcomeDao {
 	public static String getsomeDetails() {
 		try(Connection con=CreateConnection.getConnection(); Statement s=con.createStatement()){
-			String sql="select model_name,fuel_type,description,image_data from vehicle_model";
+			String sql="select model_name,fuel_type,description,image_data from vehicle_model limit 4";
 			ResultSet rs=s.executeQuery(sql);
 			List<Welcome> vehicles=new ArrayList<Welcome>();
-			int i=0;
-			while(rs.next()&& i<=2) {
+			
+			while(rs.next()) {
 				
 				Welcome v1=new Welcome(Base64.getEncoder().encodeToString(rs.getBytes("image_data")), rs.getString("model_name"), rs.getString("fuel_type"),rs.getString("description") );
 				vehicles.add(v1);
-				i++;
+				
 				
 			}
 			

@@ -4,11 +4,11 @@
 
 <%
     // Example: session check if needed
-    // String username = (String) session.getAttribute("username");
-    // if (username == null) {
-    //     response.sendRedirect("login.jsp");
-    //     return;
-    // }
+     String username = (String) session.getAttribute("name");
+    if (username == null) {
+        response.sendRedirect("login.jsp");
+        return;
+     }
 %>
 
 <!DOCTYPE html>
@@ -46,7 +46,7 @@
 <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
         <span class="navbar-text text-white fw-bold">
-            AutoGuide - Home
+            AutoGuide -        welcome <%=username  %>
         </span>
         <a href="logout" class="btn btn-danger btn-sm">Logout</a>
     </div>
@@ -252,7 +252,7 @@ function populateCards(data) {
                             '<div class="card-body vehicle-detail">' +
                                 '<h4>' + v.vehicle_name + '</h4>' +
                                 '<p><strong>Type:</strong> ' + v.vehicle_type + '</p>' +
-                                '<p><strong>Fuel:</strong> ' + (v.fuel_type || 'N/A') + '</p>' +
+                                '<p><strong>Fuel:</strong> ' + v.fuel_type  + '</p>' +
                                 '<p><strong>Year:</strong> ' + v.year + '</p>' +
                                 '<p><strong>Seat Capacity:</strong> ' + v.seat_capacity + '</p>' +
                                 '<p><strong>Engine:</strong> ' + v.engine_capacity + '</p>' +

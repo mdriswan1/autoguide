@@ -114,8 +114,8 @@
                     let container = document.getElementById('vehiclesContainer');
 
                     // Display up to 2 vehicles
-                    for (let i = 0; i < Math.min(data.length, 2); i++) {
-                        let v = data[i];
+                   data.forEach(d=> {
+                        let v = d;
 						console.log(data);
                         // create card element
                         let card = document.createElement('div');
@@ -147,7 +147,7 @@
                         card.appendChild(img);
                         card.appendChild(details);
                         container.appendChild(card);
-                    }
+                    });
                 })
                 .catch(error => {
                     console.error('Error loading vehicles:', error);
