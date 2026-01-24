@@ -49,7 +49,7 @@ public class FrontController extends HttpServlet {
 		int max=Integer.parseInt(servletConfig.getInitParameter("max"));
 		
 	
-		//session.setAttribute("loginCount","0" );
+		//session.setAttribute("loginCount","0" ); initially getAttribute is null
 		int count=(session.getAttribute("loginCount")==null)?1:(int) session.getAttribute("loginCount");
 		// input from jsp
 		String input=request.getParameter("input");
