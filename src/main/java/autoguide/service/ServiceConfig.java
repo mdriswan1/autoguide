@@ -3,6 +3,9 @@ package autoguide.service;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+/**
+ * this class is used to store the data from the properties file
+ */
 
 public class ServiceConfig {
 	private String className;
@@ -63,7 +66,12 @@ public class ServiceConfig {
 
 
 
-
+/**
+ * this method receives the properties files and create the object based on the key and pare
+ * 
+ * @param pro
+ * @return map
+ */
 	public static Map<String,ServiceConfig> getService(Properties pro){
 		
 		Map<String, ServiceConfig> confiqservice=new HashMap<String, ServiceConfig>();

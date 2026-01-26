@@ -7,6 +7,12 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+/*
+ *this class is used to get the connection from the data source
+ * 
+ */
+
+
 public class CreateConnection {
 	public static Connection getConnection() {
 //		InitialContext context;

@@ -1,13 +1,16 @@
 package autoguide.service;
 
 import java.io.IOException;
+
+
 import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.management.RuntimeErrorException;
 
+/**
+ * this class is used to create the object for the service class
+ */
 public class ServiceFactory {
 
 	public static  Map<String , ServiceConfig> map=null;
@@ -30,7 +33,12 @@ public class ServiceFactory {
 		}
 	}
 	
-	
+	/**
+	 * get the input, depends on the input get the serviceConfig object 
+	 * get the class_name from serviceConfig object and create the object and return it back
+	 * @param input
+	 * @return service Object
+	 */
 	public static Service getInstance(String input) {//login
 		try {
 			if(input==null) {

@@ -7,6 +7,16 @@ import java.util.Date;
 
 public class SignupDao {
 	
+	/**
+	 * This class is used to insert the new user data into the data base(Users table)
+	 * @param fullname
+	 * @param email is unique value 
+	 * @param password is converted in hash and stored it in the data base
+	 * @param city
+	 * created_at is to store the data when the sign up the data 
+	 * @return true or false if the user give the valid data else false(not insert data in the data base)
+	 */
+	
 	public static boolean createUser(String fullname,String email,String password,String city) {
 		try(Connection connection=CreateConnection.getConnection();PreparedStatement preparedStatement=connection.prepareStatement("insert into users(full_name,email,password,city,created_at) values(?,?,?,?,?)")){
 			preparedStatement.setString(1,fullname);

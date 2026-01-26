@@ -1,6 +1,9 @@
 package autoguide.dao;
 
 import java.sql.Connection;
+/**
+ * this class is used for the filter option (Vehicle_type,manufacturer,model)
+ */
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +14,10 @@ import java.util.List;
 import com.google.gson.Gson;
 
 public class GetColumnsDAO {
-	// gives two or four wheeler
+/**
+ * this method is used to get the vehicle type from the vehicle type table from the data base
+ * @return vehicle type
+ */
 	public static String getVehicleType() {
 		List<String> types = new ArrayList<String>();
 		try (Connection con = CreateConnection.getConnection(); Statement s = con.createStatement()) {
@@ -29,7 +35,10 @@ public class GetColumnsDAO {
 		}
 	}
 
-	// it gives maufcature name
+	/**
+	 * this method is used to get the manufacturer from the manufacturer table from the data base based on the vehicle type
+	 * @return manufacturer name
+	 */
 	public static String getVehicleManufacturer(String vehicle_type) {
 		List<String> types = new ArrayList<String>();
 		try (Connection con = CreateConnection.getConnection();
@@ -49,7 +58,10 @@ public class GetColumnsDAO {
 			return null;
 		}
 	}
-
+	/**
+	 * this method is used to get the model name from the vehicle_model table from the data base based on the manufacturer
+	 * @return model
+	 */
 	public static String getVehicleModel(String manufaturer) {
 		List<String> types = new ArrayList<String>();
 		try (Connection con = CreateConnection.getConnection();

@@ -9,6 +9,13 @@ import org.mindrot.jbcrypt.BCrypt;
 
 public class LoginDao{
 	
+	/**
+	 * this class is used to validate the user
+	 * @param email from user come from request
+	 * @param password from user come from request
+	 * @return true means valid user or else invalid user
+	 */
+	
 	public static boolean userValidate(String email,String password) {
 		
 		
