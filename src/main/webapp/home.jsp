@@ -29,6 +29,7 @@ body {
     background-color: #222;
     color: white;
     padding: 15px 20px;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -103,7 +104,7 @@ button:hover {
 .vehicle-card img {
     width: 250px;
     height: 180px;
-    object-fit: cover;
+    object-fit:contain;
 }
 
 .vehicle-detail {
@@ -114,6 +115,26 @@ button:hover {
 
 .vehicle-detail h4 {
     margin-top: 0;
+}
+
+.avehicle-image{
+display:flex;
+justify-content:center;
+align-items: center;
+}
+
+/*------------footer--------------*/
+
+#footer{
+	width:100%;
+	height:40px;
+	background-color: #222;
+    color: white;
+    color:white;
+    display:flex;
+    justify-content:space-around;
+    align-items: center;
+    
 }
 </style>
 </head>
@@ -163,8 +184,10 @@ button:hover {
 
     <!-- VEHICLE LIST -->
     <div id="vehicleCardsContainer"></div>
+  
 
 </div>
+  <jsp:include page="footer.jsp"/>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -195,7 +218,7 @@ document.getElementById("vehicleType").addEventListener("change", function () {
     const manu = document.getElementById("manufacturer");
     const model = document.getElementById("model");
 
-    manu.innerHTML = '<option value="">-- All Manufacturers --</option>';
+  	manu.innerHTML = '<option value="">-- All Manufacturers --</option>';
     model.innerHTML = '<option value="">-- All Models --</option>';
     manu.disabled = true;
     model.disabled = true;
@@ -211,16 +234,19 @@ document.getElementById("vehicleType").addEventListener("change", function () {
             data.forEach(m => manu.innerHTML += '<option value="'+m+'">'+m+'</option>');
             manu.disabled = false;
         });
+   // fetch('http://localhost:8080/autoguide/api/vehicledetails/vehicletypedata/'+type)
+    //.then(resp => resp.json())
+    //.then(data => populateCards(data));
 });
 
 document.getElementById("manufacturer").addEventListener("change", function () {
     const manu = this.value;
     const model = document.getElementById("model");
 
-    model.innerHTML = '<option value="">-- All Models --</option>';
+   	model.innerHTML = '<option value="">-- All Models --</option>';
     model.disabled = true;
 
-    if (!manu) {
+     if (!manu) {
         loadAllVehicles();
         return;
     }
@@ -231,14 +257,23 @@ document.getElementById("manufacturer").addEventListener("change", function () {
             data.forEach(m => model.innerHTML += '<option value="'+m+'">'+m+'</option>');
             model.disabled = false;
         });
+    
 });
 
 function getVehicleDetails() {
+	const type=document.getElementById("vehicleType").value
     const model = document.getElementById("model").value;
     const manu = document.getElementById("manufacturer").value;
 
-    if (!manu || !model) {
-        loadAllVehicles();
+    if (type && !manu && !model ) {
+    	fetch('http://localhost:8080/autoguide/api/vehicledetails/vehicletypedata/'+type)
+        .then(resp => resp.json())
+        .then(data => populateCards(data));
+        return;
+    }else if(manu!="" && !model){
+    	fetch('http://localhost:8080/autoguide/api/vehicledetails/manufacturerdata/'+manu)
+        .then(resp => resp.json())
+        .then(data => populateCards(data));
         return;
     }
 
@@ -276,7 +311,8 @@ function populateCards(data) {
         // Build HTML using string concatenation
         container.innerHTML +=
             '<div class="vehicle-card">' +
-                '<img src="' + img + '">' +
+            '<div class="vehicle-image">'+
+                '<img src="' + img + '">' +'</div>'+
                 '<div class="vehicle-detail">' +
                     '<h4>' + v.vehicle_name + '</h4>' +
                     '<p><b>Type:</b> ' + v.vehicle_type + '</p>' +

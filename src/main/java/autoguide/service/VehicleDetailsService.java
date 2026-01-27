@@ -39,4 +39,16 @@ public class VehicleDetailsService {
 		logger.debug("getWelcomeDetails method is called in service module");
 		return VehicleDetailsDao.getsomeDetails();
 	}
+	
+	
+	public static String vehicleTypeDetails(String type) {
+		return VehicleDetailsDao.vehicleTypeDetails(type);
+	}
+	
+	public static String manufacturerDetails(String type) {
+		return VehicleDetailsDao.manufacturerDetails(type);
+	}
+	
+	
+	
 }

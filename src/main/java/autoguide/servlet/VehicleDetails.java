@@ -51,10 +51,11 @@ public class VehicleDetails extends HttpServlet {
 		PrintWriter print = response.getWriter();
 		String path = request.getPathInfo();
 		String[] paths = {};
-		if (path != null)
+		if (path != null) {
 			// if the path is not null then we divide the path depends the path give the
 			// results
 			paths = path.split("/");
+			System.out.println(Arrays.toString(paths));}
 		System.out.println(Arrays.toString(paths));
 
 		if ("".equals(path) || "/".equals(path) || path.equals(null)) {
@@ -97,6 +98,16 @@ public class VehicleDetails extends HttpServlet {
 		}else if("welcome".equals(paths[1])) {
 			PrintWriter pw=response.getWriter();
 			String json=VehicleDetailsService.getWelcomeDetails();
+			pw.write(json);
+		}else if("vehicletypedata".equals(paths[1])) {
+			PrintWriter pw=response.getWriter();
+			String type=paths[2];
+			String json=VehicleDetailsService.vehicleTypeDetails(type);
+			pw.write(json);
+		}else if("manufacturerdata".equals(paths[1])) {
+			PrintWriter pw=response.getWriter();
+			String type=paths[2];
+			String json=VehicleDetailsService.manufacturerDetails(type);
 			pw.write(json);
 		}
 
