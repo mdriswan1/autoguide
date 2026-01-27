@@ -5,8 +5,11 @@ import java.sql.PreparedStatement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class SignupDao {
-	
+	  private static final Logger logger=LogManager.getLogger(SignupDao.class);
 	/**
 	 * This class is used to insert the new user data into the data base(Users table)
 	 * @param fullname
@@ -29,10 +32,12 @@ public class SignupDao {
 			preparedStatement.setString(5, sdf.format(new Date()));
 			int update=preparedStatement.executeUpdate();
 			if(update>=1) {
+				logger.debug("inserted sigup details successfully");
 				return true;
 			}
 			return false;
 		}catch(Exception e) {
+			logger.error("error while sigunup ");
 			e.printStackTrace();
 			
 			return false;

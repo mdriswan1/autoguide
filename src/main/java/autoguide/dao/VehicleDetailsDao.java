@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.google.gson.Gson;
 
 import autoguide.util.AllVehicleDetails;
@@ -25,6 +28,7 @@ import autoguide.util.Welcome;
  *         the front page
  */
 public class VehicleDetailsDao {
+	  private static final Logger logger=LogManager.getLogger(VehicleDetailsDao.class);
 
 	/**
 	 * This method is used to return the all vehicle details from data base(From
@@ -52,10 +56,13 @@ public class VehicleDetailsDao {
 			Gson gson = new Gson();
 			String json = gson.toJson(all);
 			System.out.println(json);
+			logger.debug("all vehicle details are get from the database");
 			return json;
 
 		} catch (SQLException e) {
+			
 			e.printStackTrace();
+			logger.error("error while fetching all vehicle details");
 			return null;
 			// TODO: handle exception
 		}
@@ -92,11 +99,13 @@ public class VehicleDetailsDao {
 			Gson gson = new Gson();
 			String json = gson.toJson(all);
 			System.out.println(json);
+			logger.debug("get all the vehicle details using manufacturer and model_name ");
 			return json;
 
 		} catch (SQLException e) {
 			// TODO: handle exception
 			e.printStackTrace();
+			logger.error("error while fetching details for manufacturer and model_name ");
 			return null;
 		}
 	}
@@ -124,11 +133,13 @@ public class VehicleDetailsDao {
 
 			Gson gson = new Gson();
 			String json = gson.toJson(vehicles);
+			logger.debug("get vehicle details from database based for annoyms users");
 			return json;
 
 		} catch (SQLException e) {
 			// TODO: handle exception
 			e.printStackTrace();
+			logger.error("error while fetching data for annoynms users");
 			return null;
 		}
 	}

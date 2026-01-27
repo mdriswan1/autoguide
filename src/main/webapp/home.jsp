@@ -3,12 +3,11 @@
 <%@ page session="true" %>
 
 <%
-    // Example: session check if needed
-     String username = (String) session.getAttribute("name");
+    String username = (String) session.getAttribute("name");
     if (username == null) {
         response.sendRedirect("login.jsp");
         return;
-     }
+    }
 %>
 
 <!DOCTYPE html>
@@ -17,101 +16,168 @@
 <meta charset="UTF-8">
 <title>Home - AutoGuide</title>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-
 <style>
-    body {
-        background-color: #f5f5f5;
-    }
-    .filter-box {
-        background: white;
-        padding: 20px;
-        border-radius: 8px;
-        margin-bottom: 20px;
-    }
-    .vehicle-detail {
-        background: #f9f9f9;
-        padding: 10px;
-        border-radius: 6px;
-    }
-    .card img {
-        object-fit: cover;
-        height: 100%;
-    }
+/* -------- BASIC RESET -------- */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+}
+
+/* -------- NAVBAR -------- */
+.navbar {
+    background-color: #222;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    background: red;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* -------- CONTAINER -------- */
+.container {
+    width: 90%;
+    margin: 20px auto;
+}
+
+/* -------- FILTER BOX -------- */
+.filter-box {
+    background: white;
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.filter-row {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.filter-group {
+    flex: 1;
+    min-width: 180px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+select, button {
+    width: 100%;
+    padding: 8px;
+}
+
+/* -------- BUTTON -------- */
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* -------- VEHICLE CARDS -------- */
+.vehicle-card {
+    background: white;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+}
+
+.vehicle-card img {
+    width: 250px;
+    height: 180px;
+    object-fit: cover;
+}
+
+.vehicle-detail {
+    padding: 15px;
+    background: #f9f9f9;
+    width: 100%;
+}
+
+.vehicle-detail h4 {
+    margin-top: 0;
+}
 </style>
 </head>
+
 <body>
 
 <!-- NAVBAR -->
-<nav class="navbar navbar-dark bg-dark">
-    <div class="container-fluid">
-        <span class="navbar-text text-white fw-bold">
-            AutoGuide -        welcome <%=username  %>
-        </span>
-        <a href="logout" class="btn btn-danger btn-sm">Logout</a>
-    </div>
-</nav>
+<div class="navbar">
+    <div>AutoGuide – Welcome <b><%= username %></b></div>
+    <a href="logout">Logout</a>
+</div>
 
-<div class="container mt-4">
+<div class="container">
 
     <!-- FILTER SECTION -->
     <div class="filter-box">
-        <h5>Filter Vehicles</h5>
-        <div class="row mt-3">
+        <h3>Filter Vehicles</h3>
 
-            <div class="col-md-3">
+        <div class="filter-row">
+            <div class="filter-group">
                 <label>Vehicle Type</label>
-                <select id="vehicleType" class="form-select">
+                <select id="vehicleType">
                     <option value="">-- All Types --</option>
                 </select>
             </div>
 
-            <div class="col-md-3">
+            <div class="filter-group">
                 <label>Manufacturer</label>
-                <select id="manufacturer" class="form-select" disabled>
+                <select id="manufacturer" disabled>
                     <option value="">-- All Manufacturers --</option>
                 </select>
             </div>
 
-            <div class="col-md-3">
+            <div class="filter-group">
                 <label>Model</label>
-                <select id="model" class="form-select" disabled>
+                <select id="model" disabled>
                     <option value="">-- All Models --</option>
                 </select>
             </div>
 
-            <div class="col-md-3 d-flex align-items-end">
-                <button class="btn btn-primary w-100" onclick="getVehicleDetails()">Get Details</button>
+            <div class="filter-group">
+                <label>&nbsp;</label>
+                <button onclick="getVehicleDetails()">Get Details</button>
             </div>
-
         </div>
     </div>
 
     <!-- VEHICLE LIST -->
-    <div id="vehicleCardsContainer" class="row g-3">
-    
-    </div>
+    <div id="vehicleCardsContainer"></div>
 
 </div>
 
 <script>
-// Load initial vehicle data and types
 document.addEventListener("DOMContentLoaded", function () {
     loadVehicleTypes();
-    loadAllVehicles(); // Load all vehicles initially
+    loadAllVehicles();
 });
 
-/* ---------------- LOAD ALL VEHICLES ---------------- */
 function loadAllVehicles() {
     fetch('http://localhost:8080/autoguide/api/vehicledetails/')
         .then(resp => resp.json())
-        .then(data => {
-            populateCards(Array.isArray(data) ? data : [data]);
-        })
-        .catch(err => console.error("Error loading vehicles:", err));
+        .then(data => populateCards(Array.isArray(data) ? data : [data]));
 }
 
-/* ---------------- LOAD VEHICLE TYPES ---------------- */
 function loadVehicleTypes() {
     fetch('http://localhost:8080/autoguide/api/vehicledetails/vehicletype')
         .then(resp => resp.json())
@@ -119,19 +185,16 @@ function loadVehicleTypes() {
             const dropdown = document.getElementById("vehicleType");
             dropdown.innerHTML = '<option value="">-- All Types --</option>';
             data.forEach(type => {
-                dropdown.innerHTML += '<option value="' + type + '">' + type + '</option>';
+            	 dropdown.innerHTML += '<option value="' + type + '">' + type + '</option>';
             });
-        })
-        .catch(err => console.error("Error loading vehicle types:", err));
+        });
 }
 
-/* ---------------- VEHICLE TYPE → MANUFACTURER ---------------- */
 document.getElementById("vehicleType").addEventListener("change", function () {
     const type = this.value;
     const manu = document.getElementById("manufacturer");
     const model = document.getElementById("model");
 
-    // Reset manufacturer and model dropdowns
     manu.innerHTML = '<option value="">-- All Manufacturers --</option>';
     model.innerHTML = '<option value="">-- All Models --</option>';
     manu.disabled = true;
@@ -142,18 +205,14 @@ document.getElementById("vehicleType").addEventListener("change", function () {
         return;
     }
 
-    fetch('http://localhost:8080/autoguide/api/vehicledetails/manufacturer/' + encodeURIComponent(type))
+    fetch('http://localhost:8080/autoguide/api/vehicledetails/manufacturer/' + type)
         .then(resp => resp.json())
         .then(data => {
-            data.forEach(m => {
-                manu.innerHTML += '<option value="' + m + '">' + m + '</option>';
-            });
+            data.forEach(m => manu.innerHTML += '<option value="'+m+'">'+m+'</option>');
             manu.disabled = false;
-        })
-        .catch(err => console.error("Error loading manufacturers:", err));
+        });
 });
 
-/* ---------------- MANUFACTURER → MODEL ---------------- */
 document.getElementById("manufacturer").addEventListener("change", function () {
     const manu = this.value;
     const model = document.getElementById("model");
@@ -166,18 +225,14 @@ document.getElementById("manufacturer").addEventListener("change", function () {
         return;
     }
 
-    fetch('http://localhost:8080/autoguide/api/vehicledetails/model_name/' + encodeURIComponent(manu))
+    fetch('http://localhost:8080/autoguide/api/vehicledetails/model_name/' + manu)
         .then(resp => resp.json())
         .then(data => {
-            data.forEach(m => {
-                model.innerHTML += '<option value="' + m + '">' + m + '</option>';
-            });
+            data.forEach(m => model.innerHTML += '<option value="'+m+'">'+m+'</option>');
             model.disabled = false;
-        })
-        .catch(err => console.error("Error loading models:", err));
+        });
 });
 
-/* ---------------- FILTER BUTTON ---------------- */
 function getVehicleDetails() {
     const model = document.getElementById("model").value;
     const manu = document.getElementById("manufacturer").value;
@@ -187,84 +242,55 @@ function getVehicleDetails() {
         return;
     }
 
-    fetch(
-        'http://localhost:8080/autoguide/api/vehicledetails/getvehicle/' +
-        encodeURIComponent(manu) + '/' +
-        encodeURIComponent(model)
-    )
-    .then(resp => resp.json())
-    .then(data => populateCards(data))
-    .catch(err => console.error(err));
+    fetch('http://localhost:8080/autoguide/api/vehicledetails/getvehicle/'+manu+'/'+model)
+        .then(resp => resp.json())
+        .then(data => populateCards(data));
 }
 
-
-/* ---------------- RENDER VEHICLE CARDS ---------------- */
 function populateCards(data) {
-    if (!data) return;
 
-    // Wrap single object in array
-    const vehicles = Array.isArray(data) ? data : [data];
+    // Get the container where cards will be added
+    var container = document.getElementById("vehicleCardsContainer");
 
-    const container = document.getElementById("vehicleCardsContainer");
-    container.innerHTML = '';
-    
-    console.log("vechicle array=> ", vehicles);
+    // Clear old data
+    container.innerHTML = "";
 
-    vehicles.forEach(v => {
-        console.log(v); // Debug: see actual object
+    // If backend sends single object, convert to array
+    if (!Array.isArray(data)) {
+        data = [data];
+    }
 
-        const img = v.vehicle_image
-            ? 'data:image/jpeg;base64,' + v.vehicle_image
-            : 'https://via.placeholder.com/200';
+    // Loop through each vehicle
+    for (var i = 0; i < data.length; i++) {
 
-         console.log("before html setting....");
-         /*container.innerHTML = `
-             <div class="col-md-12">
-                <div class="card mb-3">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="${img}" class="img-fluid rounded-start" alt="${v.vehicle_name}">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body vehicle-detail">
-                                <h4>${v.vehicle_name}</h4>
-                                <p><strong>Type:</strong> ${v.vehicle_type}</p>
-                                <p><strong>Fuel:</strong> ${v.fuel_type || 'N/A'}</p>
-                                <p><strong>Year:</strong> ${v.year}</p>
-                                <p><strong>Seat Capacity:</strong> ${v.seat_capacity}</p>
-                                <p><strong>Engine:</strong> ${v.engine_capacity}</p>
-                                <p><strong>Dimensions (L×W×H mm):</strong> ${v.length_mm} × ${v.width_mm} × ${v.height_mm}</p>
-                                <p><strong>Description:</strong> ${v.description}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> 
-        `;*/
-        container.innerHTML += 
-            '<div class="col-md-12">' +
-                '<div class="card mb-3">' +
-                    '<div class="row g-0">' +
-                        '<div class="col-md-4">' +
-                            '<img src="' + img + '" class="img-fluid rounded-start" alt="' + v.vehicle_name + '">' +
-                        '</div>' +
-                        '<div class="col-md-8">' +
-                            '<div class="card-body vehicle-detail">' +
-                                '<h4>' + v.vehicle_name + '</h4>' +
-                                '<p><strong>Type:</strong> ' + v.vehicle_type + '</p>' +
-                                '<p><strong>Fuel:</strong> ' + v.fuel_type  + '</p>' +
-                                '<p><strong>Year:</strong> ' + v.year + '</p>' +
-                                '<p><strong>Seat Capacity:</strong> ' + v.seat_capacity + '</p>' +
-                                '<p><strong>Engine:</strong> ' + v.engine_capacity + '</p>' +
-                                '<p><strong>Dimensions (L×W×H mm):</strong> ' + v.length_mm + ' × ' + v.width_mm + ' × ' + v.height_mm + '</p>' +
-                                '<p><strong>Description:</strong> ' + v.description + '</p>' +
-                            '</div>' +
-                        '</div>' +
-                    '</div>' +
+        var v = data[i];
+
+        // If image exists use base64, else use placeholder
+        var img;
+        if (v.vehicle_image) {
+            img = "data:image/jpeg;base64," + v.vehicle_image;
+        } else {
+            img = "https://via.placeholder.com/250";
+        }
+
+        // Build HTML using string concatenation
+        container.innerHTML +=
+            '<div class="vehicle-card">' +
+                '<img src="' + img + '">' +
+                '<div class="vehicle-detail">' +
+                    '<h4>' + v.vehicle_name + '</h4>' +
+                    '<p><b>Type:</b> ' + v.vehicle_type + '</p>' +
+                    '<p><b>Fuel:</b> ' + v.fuel_type + '</p>' +
+                    '<p><b>Year:</b> ' + v.year + '</p>' +
+                    '<p><b>Seats:</b> ' + v.seat_capacity + '</p>' +
+                    '<p><b>Engine:</b> ' + v.engine_capacity + '</p>' +
+                    '<p><b>Dimensions:</b> ' +
+                        v.length_mm + ' × ' + v.width_mm + ' × ' + v.height_mm +
+                    '</p>' +
+                    '<p><b>Description:</b> ' + v.description + '</p>' +
                 '</div>' +
             '</div>';
-
-    });
+    }
 }
 
 </script>

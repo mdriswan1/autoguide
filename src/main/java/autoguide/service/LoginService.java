@@ -1,5 +1,8 @@
  package autoguide.service;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import autoguide.dao.GetUserName;
 import autoguide.dao.LoginDao;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,6 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 
 public class LoginService implements Service {
+	  private static final Logger logger=LogManager.getLogger(LoginService.class);
 /**
  * get the data of user email and the password and validate the details from the data base based on the email 
  * validate email and password from the dao class
@@ -20,9 +24,10 @@ public class LoginService implements Service {
 		
 		
 		// TODO Auto-generated method stub
-		
+		logger.debug("controll transefer login execute method");
 		String email=req.getParameter("email");
 		String password=req.getParameter("password");
+		
 //		if(login)
 		
 		//

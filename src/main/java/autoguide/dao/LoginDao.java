@@ -5,9 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class LoginDao{
+	  private static final Logger logger=LogManager.getLogger(LoginDao.class);
 	
 	/**
 	 * this class is used to validate the user
@@ -25,11 +28,13 @@ public class LoginDao{
 			if(rs.next()) {
 				String pw=rs.getString("password");
 				boolean flag=BCrypt.checkpw(password, pw);
+				logger.debug("validate the email and password");
 				return flag;
 			}
 		}catch (SQLException  e) {
 			// TODO: handle exception
 			e.printStackTrace();
+			logger.error("error while login validate");
 			return false;
 		}
 		return false;

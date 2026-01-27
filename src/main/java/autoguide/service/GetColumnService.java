@@ -1,10 +1,14 @@
 package autoguide.service;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import autoguide.dao.GetColumnsDAO;
 /**
  * this is the service class to call the getcolumnDao class (Service to DAO)
  */
 public class GetColumnService {
+	  private static final Logger logger=LogManager.getLogger(GetColumnService.class);
 	
 	/**
 	 * this method is used to call the getVehicleType method and get the data
@@ -12,6 +16,7 @@ public class GetColumnService {
 	 */
 	
 	public static String getVehicleType() {
+		logger.debug("getVehicleType method is called");
 		return GetColumnsDAO.getVehicleType();
 	}
 	
@@ -20,6 +25,7 @@ public class GetColumnService {
 	 * @return manufacturer_name
 	 */
 	public static String getVehicleManufacturer(String vehicle_type) {
+		logger.debug("getVehicleManufacturer  method is called");
 		return GetColumnsDAO.getVehicleManufacturer(vehicle_type);
 	}
 	/**
@@ -28,6 +34,7 @@ public class GetColumnService {
 	 */
 	
 	public static String getVehicleModel(String manufacturer) {
+		logger.debug("getVehicleModel method is called");
 		return GetColumnsDAO.getVehicleModel(manufacturer);
 	}
 }

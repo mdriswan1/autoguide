@@ -1,5 +1,8 @@
 package autoguide.service;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import autoguide.dao.VehicleDetailsDao;
 
 /**
@@ -9,11 +12,13 @@ import autoguide.dao.VehicleDetailsDao;
 
 
 public class VehicleDetailsService {
+	  private static final Logger logger=LogManager.getLogger(VehicleDetailsService.class);
 /**
  * this method return all vehicle 
  * @return all Vehicle details
  */
 	public static String vehicleDetails() {
+		logger.debug("vehicleDetails method is called in service module");
 		return VehicleDetailsDao.allVehicles();
 	}
 /**
@@ -23,6 +28,7 @@ public class VehicleDetailsService {
  * @return vehicle details
  */
 	public static String vehicleDetails(String manu, String model) {
+		logger.debug("vehicleDetails  method is called with two inputs in service module");
 		return VehicleDetailsDao.getVehicle(manu, model);
 	}
 	/**
@@ -30,6 +36,7 @@ public class VehicleDetailsService {
 	 * @return 3 vehicle details
 	 */
 	public static String getWelcomeDetails() {
+		logger.debug("getWelcomeDetails method is called in service module");
 		return VehicleDetailsDao.getsomeDetails();
 	}
 }
