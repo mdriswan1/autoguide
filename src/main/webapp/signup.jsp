@@ -21,12 +21,12 @@ body {
 	align-items: center;
 	height: 100vh;
 	width: 100vw;
-	background: black;
-	background-image: url("images/car1.jpg");
+	background: white;
+	
 	background-size: cover;
 	background-position: center center;
 	background-repeat: no-repeat;
-	image-rendering: -webkit-optimize-contrast;
+	
 }
 
 #middle {
@@ -38,7 +38,6 @@ body {
 	width: 35%;
 	border-radius: 20px;
 	background: black;
-	opacity: 0.8;
 	color: white;
 }
 
@@ -60,13 +59,14 @@ button {
 	width: 100%;
 	height: 30px;
     font-weight: bold;
-    color: black;
+    background-color:red;
+    color: white;
     cursor:pointer;
 }
 
 a {
 	text-decoration: none;
-	color:white;
+	color:red;
 }
  h1 {
 
@@ -99,7 +99,7 @@ a {
     <button type="submit">Register</button>
 </form>
 
-<a href="login.jsp">Already registered? Login</a>
+<div>Already registered? <a href="login.jsp"> Login</a></div>
 
 <hr>
 <div style="color:red;">
