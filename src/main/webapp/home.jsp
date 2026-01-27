@@ -198,7 +198,7 @@ document.addEventListener("DOMContentLoaded", function () {
 function loadAllVehicles() {
     fetch('http://localhost:8080/autoguide/api/vehicledetails/')
         .then(resp => resp.json())
-        .then(data => populateCards(Array.isArray(data) ? data : [data]));
+       .then(data => populateCards(data));
 }
 
 function loadVehicleTypes() {
