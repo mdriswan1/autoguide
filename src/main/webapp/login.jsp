@@ -14,6 +14,7 @@
 body {
 	height: 100vh;
 	width: 100vw;
+	
 }
 
 #full {
@@ -23,8 +24,7 @@ body {
 	height: 100vh;
 	width: 100vw;
 	background: white;
-	
-	background-opacity:0.8;
+	background-image:url("images/background.jpg");
 	background-size: cover;
 	background-position: center center;
 	background-repeat: no-repeat;
@@ -39,8 +39,9 @@ body {
 	height: 60%;
 	width: 30%;
 	border-radius: 20px;
-	background: black;
-	color: white;
+	background:rgba(150, 150, 150 ,0.9);
+	border:1px solid gray;
+	color: black;
 }
 
 form {
@@ -54,7 +55,8 @@ form {
 input {
 	width: 100%;
 	height: 30px;
-	padding: 5px
+	padding: 5px;
+	border-radius: 10px;
 }
 
 button {
@@ -64,6 +66,7 @@ button {
     background-color:red;
     color: white;
     cursor:pointer;
+    border-radius: 10px;
 }
 
 a {
@@ -74,9 +77,11 @@ a {
 
         font-size: 26px;
         font-weight: bold;
-        color: white;
+        color: black;
     }
-
+button:focus {
+	background-color:pink;
+}
 
 </style>
 
