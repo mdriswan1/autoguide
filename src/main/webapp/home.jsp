@@ -102,7 +102,7 @@ button:hover {
 }
 
 .vehicle-card img {
-    width: 250px;
+    width: 280px;
     height: 180px;
     object-fit:contain;
 }
@@ -117,7 +117,7 @@ button:hover {
     margin-top: 0;
 }
 
-.avehicle-image{
+.vehicle-image{
 display:flex;
 justify-content:center;
 align-items: center;
@@ -157,21 +157,21 @@ align-items: center;
             <div class="filter-group">
                 <label>Vehicle Type</label>
                 <select id="vehicleType">
-                    <option value="">-- All Types --</option>
+                    <option value=""> All Types </option>
                 </select>
             </div>
 
             <div class="filter-group">
                 <label>Manufacturer</label>
                 <select id="manufacturer" disabled>
-                    <option value="">-- All Manufacturers --</option>
+                    <option value=""> All Manufacturers </option>
                 </select>
             </div>
 
             <div class="filter-group">
                 <label>Model</label>
                 <select id="model" disabled>
-                    <option value="">-- All Models --</option>
+                    <option value=""> All Models </option>
                 </select>
             </div>
 
@@ -206,7 +206,7 @@ function loadVehicleTypes() {
         .then(resp => resp.json())
         .then(data => {
             const dropdown = document.getElementById("vehicleType");
-            dropdown.innerHTML = '<option value="">-- All Types --</option>';
+            dropdown.innerHTML = '<option value=""> All Types </option>';
             data.forEach(type => {
             	 dropdown.innerHTML += '<option value="' + type + '">' + type + '</option>';
             });
@@ -218,8 +218,8 @@ document.getElementById("vehicleType").addEventListener("change", function () {
     const manu = document.getElementById("manufacturer");
     const model = document.getElementById("model");
 
-  	manu.innerHTML = '<option value="">-- All Manufacturers --</option>';
-    model.innerHTML = '<option value="">-- All Models --</option>';
+  	manu.innerHTML = '<option value=""> All Manufacturers </option>';
+    model.innerHTML = '<option value=""> All Models </option>';
     manu.disabled = true;
     model.disabled = true;
 
@@ -243,7 +243,7 @@ document.getElementById("manufacturer").addEventListener("change", function () {
     const manu = this.value;
     const model = document.getElementById("model");
 
-   	model.innerHTML = '<option value="">-- All Models --</option>';
+   	model.innerHTML = '<option value=""> All Models </option>';
     model.disabled = true;
 
      if (!manu) {
@@ -264,13 +264,16 @@ function getVehicleDetails() {
 	const type=document.getElementById("vehicleType").value
     const model = document.getElementById("model").value;
     const manu = document.getElementById("manufacturer").value;
-
-    if (type && !manu && !model ) {
+if(!type){
+	loadAllVehicles();
+    return;
+}
+    else if (type && !manu && !model ) {
     	fetch('http://localhost:8080/autoguide/api/vehicledetails/vehicletypedata/'+type)
         .then(resp => resp.json())
         .then(data => populateCards(data));
         return;
-    }else if(manu!="" && !model){
+    }else if(manu && !model){
     	fetch('http://localhost:8080/autoguide/api/vehicledetails/manufacturerdata/'+manu)
         .then(resp => resp.json())
         .then(data => populateCards(data));
@@ -290,23 +293,15 @@ function populateCards(data) {
     // Clear old data
     container.innerHTML = "";
 
-    // If backend sends single object, convert to array
-    if (!Array.isArray(data)) {
-        data = [data];
-    }
+  
 
     // Loop through each vehicle
     for (var i = 0; i < data.length; i++) {
 
         var v = data[i];
 
-        // If image exists use base64, else use placeholder
-        var img;
-        if (v.vehicle_image) {
-            img = "data:image/jpeg;base64," + v.vehicle_image;
-        } else {
-            img = "https://via.placeholder.com/250";
-        }
+        // If image exists use base64
+        var img="data:image/jpeg;base64," + v.vehicle_image;
 
         // Build HTML using string concatenation
         container.innerHTML +=

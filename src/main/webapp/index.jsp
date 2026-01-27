@@ -140,7 +140,7 @@ body {
                 .then(data => {
                     let container = document.getElementById('vehiclesContainer');
 
-                    // Display up to 2 vehicles
+                    // Display up to 4 vehicles
                    data.forEach(d=> {
                         let v = d;
 						console.log(data);
