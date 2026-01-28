@@ -38,7 +38,9 @@ public class Logout extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session=request.getSession();
 		logger.debug("user logout the session and forward to the login page"+request.getAttribute("email"));
+		System.out.println("inside logout");
 		session.invalidate();
+		
 		response.sendRedirect(ServiceFactory.map.get("logout").getSuccess());
 		
 	}
