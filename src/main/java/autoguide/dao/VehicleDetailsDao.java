@@ -40,7 +40,7 @@ public class VehicleDetailsDao {
 		try (Connection con = CreateConnection.getConnection(); Statement s = con.createStatement()) {
 			List<AllVehicleDetails> all = new ArrayList<AllVehicleDetails>();
 			ResultSet rs = s.executeQuery(
-					"select * from vehicle_model inner join vehicle_type on vehicle_model.type_id= vehicle_type.type_id");
+					"select * from vehicle_model inner join vehicle_type on vehicle_model.type_id= vehicle_type.type_id left join vehicle_news on vehicle_model.model_id=vehicle_news.model_id");
 			String image = "";
 			while (rs.next()) {
 				if (rs.getBytes("image_data") != null) {
@@ -49,7 +49,7 @@ public class VehicleDetailsDao {
 				AllVehicleDetails v = new AllVehicleDetails(image, rs.getString("type_name"),
 						rs.getString("model_name"), rs.getString("fuel_type"), rs.getInt("year_of_manuf"),
 						rs.getInt("seating_capacity"), rs.getString("engine_capacity"), rs.getInt("length_mm"),
-						rs.getInt("width_mm"), rs.getInt("height_mm"), rs.getString("description"));
+						rs.getInt("width_mm"), rs.getInt("height_mm"), rs.getString("description"),rs.getString("link"));
 				all.add(v);
 
 			}
@@ -79,7 +79,7 @@ public class VehicleDetailsDao {
 	public static String getVehicle(String manu, String name) {
 		try (Connection con = CreateConnection.getConnection();
 				PreparedStatement ps = con.prepareStatement(
-						"select vehicle_model.image_data,vehicle_type.type_name,vehicle_model.model_name,vehicle_model.fuel_type,vehicle_model.year_of_manuf,vehicle_model.seating_capacity,vehicle_model.engine_capacity,vehicle_model.length_mm,vehicle_model.width_mm,vehicle_model.height_mm,vehicle_model.description from vehicle_model inner join manufacturer on manufacturer.manufacturer_id=(select m1.manufacturer_id from manufacturer m1 where m1.name=?) and vehicle_model.model_name=? inner join vehicle_type on vehicle_model.type_id=vehicle_type.type_id ;")) {
+						"select vehicle_news.link,vehicle_model.image_data,vehicle_type.type_name,vehicle_model.model_name,vehicle_model.fuel_type,vehicle_model.year_of_manuf,vehicle_model.seating_capacity,vehicle_model.engine_capacity,vehicle_model.length_mm,vehicle_model.width_mm,vehicle_model.height_mm,vehicle_model.description from vehicle_model inner join manufacturer on manufacturer.manufacturer_id=(select m1.manufacturer_id from manufacturer m1 where m1.name=?) and vehicle_model.model_name=? inner join vehicle_type on vehicle_model.type_id=vehicle_type.type_id left join vehicle_news on vehicle_model.model_id=vehicle_news.model_id;")) {
 			ps.setString(1, manu);
 			ps.setString(2, name);
 			List<AllVehicleDetails> all = new ArrayList<AllVehicleDetails>();
@@ -92,7 +92,7 @@ public class VehicleDetailsDao {
 				AllVehicleDetails v = new AllVehicleDetails(image, rs.getString("type_name"),
 						rs.getString("model_name"), rs.getString("fuel_type"), rs.getInt("year_of_manuf"),
 						rs.getInt("seating_capacity"), rs.getString("engine_capacity"), rs.getInt("length_mm"),
-						rs.getInt("width_mm"), rs.getInt("height_mm"), rs.getString("description"));
+						rs.getInt("width_mm"), rs.getInt("height_mm"), rs.getString("description"),rs.getString("link"));
 				all.add(v);
 
 			}
@@ -148,7 +148,7 @@ public class VehicleDetailsDao {
 
 		try (Connection con = CreateConnection.getConnection();
 				PreparedStatement ps = con.prepareStatement(
-						"select vehicle_model.image_data,vehicle_type.type_name,vehicle_model.model_name,vehicle_model.fuel_type,vehicle_model.year_of_manuf,vehicle_model.seating_capacity,vehicle_model.engine_capacity,vehicle_model.length_mm,vehicle_model.width_mm,vehicle_model.height_mm,vehicle_model.description from vehicle_model inner join vehicle_type on vehicle_model.type_id=vehicle_type.type_id and vehicle_model.type_id in (select type_id from vehicle_type where type_name=?);")) {
+						"select vehicle_news.link,vehicle_model.image_data,vehicle_type.type_name,vehicle_model.model_name,vehicle_model.fuel_type,vehicle_model.year_of_manuf,vehicle_model.seating_capacity,vehicle_model.engine_capacity,vehicle_model.length_mm,vehicle_model.width_mm,vehicle_model.height_mm,vehicle_model.description from vehicle_model inner join vehicle_type on vehicle_model.type_id=vehicle_type.type_id and vehicle_model.type_id in (select type_id from vehicle_type where type_name=?)left join vehicle_news on vehicle_model.model_id=vehicle_news.model_id;")) {
 			ps.setString(1, type);
 
 			List<AllVehicleDetails> all = new ArrayList<AllVehicleDetails>();
@@ -161,7 +161,7 @@ public class VehicleDetailsDao {
 				AllVehicleDetails v = new AllVehicleDetails(image, rs.getString("type_name"),
 						rs.getString("model_name"), rs.getString("fuel_type"), rs.getInt("year_of_manuf"),
 						rs.getInt("seating_capacity"), rs.getString("engine_capacity"), rs.getInt("length_mm"),
-						rs.getInt("width_mm"), rs.getInt("height_mm"), rs.getString("description"));
+						rs.getInt("width_mm"), rs.getInt("height_mm"), rs.getString("description"),rs.getString("link"));
 				all.add(v);
 
 			}
@@ -184,7 +184,7 @@ public class VehicleDetailsDao {
 
 		try (Connection con = CreateConnection.getConnection();
 				PreparedStatement ps = con.prepareStatement(
-						"select vehicle_model.image_data,vehicle_type.type_name,vehicle_model.model_name,vehicle_model.fuel_type,vehicle_model.year_of_manuf,vehicle_model.seating_capacity,vehicle_model.engine_capacity,vehicle_model.length_mm,vehicle_model.width_mm,vehicle_model.height_mm,vehicle_model.description from vehicle_model inner join vehicle_type on vehicle_model.type_id=vehicle_type.type_id and vehicle_model.manufacturer_id in (select manufacturer_id from manufacturer where name=?);")) {
+						"select vehicle_news.link,vehicle_model.image_data,vehicle_type.type_name,vehicle_model.model_name,vehicle_model.fuel_type,vehicle_model.year_of_manuf,vehicle_model.seating_capacity,vehicle_model.engine_capacity,vehicle_model.length_mm,vehicle_model.width_mm,vehicle_model.height_mm,vehicle_model.description from vehicle_model inner join vehicle_type on vehicle_model.type_id=vehicle_type.type_id and vehicle_model.manufacturer_id in (select manufacturer_id from manufacturer where name=?)left join vehicle_news on vehicle_model.model_id=vehicle_news.model_id;")) {
 			ps.setString(1, type);
 
 			List<AllVehicleDetails> all = new ArrayList<AllVehicleDetails>();
@@ -197,7 +197,7 @@ public class VehicleDetailsDao {
 				AllVehicleDetails v = new AllVehicleDetails(image, rs.getString("type_name"),
 						rs.getString("model_name"), rs.getString("fuel_type"), rs.getInt("year_of_manuf"),
 						rs.getInt("seating_capacity"), rs.getString("engine_capacity"), rs.getInt("length_mm"),
-						rs.getInt("width_mm"), rs.getInt("height_mm"), rs.getString("description"));
+						rs.getInt("width_mm"), rs.getInt("height_mm"), rs.getString("description"),rs.getString("link"));
 				all.add(v);
 
 			}

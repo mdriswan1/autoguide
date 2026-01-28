@@ -12,8 +12,9 @@ public class VehicleModel {
 	private int width_mm;
 	private int height_mm;
 	private String description;
+	private String link;
 	public VehicleModel(int model_id, int manufacturer_id, int type_id, String model_name, int year_of_manufacture, String engine_capacity,
-					String fuel_type, int length_mm, int width_mm, int height_mm, String description) {
+					String fuel_type, int length_mm, int width_mm, int height_mm, String description,String link) {
 		super();
 		this.model_id = model_id;
 		this.manufacturer_id = manufacturer_id;
@@ -26,6 +27,13 @@ public class VehicleModel {
 		this.width_mm = width_mm;
 		this.height_mm = height_mm;
 		this.description = description;
+		this.link=link;
+	}
+	public String getLink() {
+		return link;
+	}
+	public void setLink(String link) {
+		this.link = link;
 	}
 	public int getModel_id() {
 		return model_id;

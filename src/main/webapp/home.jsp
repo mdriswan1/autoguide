@@ -319,6 +319,7 @@ function populateCards(data) {
                         v.length_mm + ' × ' + v.width_mm + ' × ' + v.height_mm +
                     '</p>' +
                     '<p><b>Description:</b> ' + v.description + '</p>' +
+                    '<a href="'+v.link+'">about vehicle </a>'+
                 '</div>' +
             '</div>';
     }
