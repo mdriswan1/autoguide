@@ -143,6 +143,12 @@ public class VehicleDetailsDao {
 			return null;
 		}
 	}
+	
+	/**
+	 * this method is return vehicle details based on vehicle type 
+	 * @param type
+	 * @return
+	 */
 
 	public static String vehicleTypeDetails(String type) {
 
@@ -179,7 +185,12 @@ public class VehicleDetailsDao {
 		}
 	}
 	
-	
+	/**
+	 * this method is return vehicle details based on manufacture given by vehicle type 
+	 * @param type
+	 * @return
+	 */
+
 	public static String manufacturerDetails(String type) {
 
 		try (Connection con = CreateConnection.getConnection();

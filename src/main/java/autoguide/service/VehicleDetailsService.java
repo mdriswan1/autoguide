@@ -40,10 +40,17 @@ public class VehicleDetailsService {
 		return VehicleDetailsDao.getsomeDetails();
 	}
 	
-	
+	/**
+	 *  this method return how type is vehicle is available 
+	 * @return 3 vehicle details
+	 */
 	public static String vehicleTypeDetails(String type) {
 		return VehicleDetailsDao.vehicleTypeDetails(type);
 	}
+	/**
+	 *  this method return manufacturer details based on vehicle type 
+	 * @return 3 vehicle details
+	 */
 	
 	public static String manufacturerDetails(String type) {
 		return VehicleDetailsDao.manufacturerDetails(type);
