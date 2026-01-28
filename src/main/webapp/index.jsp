@@ -26,9 +26,9 @@ body {
 	text-decoration: none;
 }
 
-.navbar .nav-buttons a {
-	color: white;
-	text-decoration: none;
+.navbar .nav-buttons button {
+	color: black;
+	
 	margin-left: 15px;
 	padding: 6px 12px;
 	border: 1px solid white;
@@ -36,7 +36,7 @@ body {
 	font-size: 14px;
 }
 
-.navbar .nav-buttons a:hover {
+.navbar .nav-buttons button:hover {
 	background-color: white;
 	color: #333;
 }
@@ -79,17 +79,17 @@ body {
 	margin-bottom: 60px;
 }
 
-.signup-section a {
-	text-decoration: none;
+.signup-section button {
+	
 	padding: 10px 22px;
 	background-color: #007BFF;
-	color: white;
+	color: black;
 	border-radius: 6px;
 	font-size: 18px;
 	
 }
 
-.signup-section a:hover {
+.signup-section button:hover {
 	background-color: #0056b3;
 }
 
@@ -117,7 +117,11 @@ body {
 	<div class="navbar">
 		<div class="brand">AutoGuide</div>
 		<div class="nav-buttons">
-			<a href="login.jsp">Login</a> <a href="signup.jsp">Signup</a>
+		<form action="controller" method="post">
+			<button type="submit" name="input" value="frontlogin">Login</button>
+			<button type="submit" name="input" value="frontsignup">Signup</button>
+		</form>
+			<!--  <a href="controller?input=frontlogin">Login</a> <a href="controller?input=frontsignup">Signup</a>-->
 		</div>
 	</div>
 
@@ -129,7 +133,10 @@ body {
 	<!-- Signup CTA -->
 	<div class="signup-section">
 		<h3>Want to see more details?</h3>
-		<a href="signup.jsp" >Sign Up Now</a>
+		<form action="controller" method="post">
+			<button type="submit" name="input" value="frontsignup">Signup</button>
+		</form>
+		<!--<a href="controller?input=frontsignup" >Sign Up Now</a> -->
 	</div>
 	<jsp:include page="footer.jsp" />
 	<!-- JavaScript to fetch API -->

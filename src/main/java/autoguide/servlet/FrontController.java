@@ -95,6 +95,9 @@ public class FrontController extends HttpServlet {
 				request.setAttribute("error","you reached max attempts and your are blocked");
 				String forward=confiq.getFailure();
 				request.getRequestDispatcher(forward).forward(request, response);
+			}else {
+				String forward=confiq.getSuccess();
+				request.getRequestDispatcher(forward).forward(request, response);
 			}
 		}else {
 			

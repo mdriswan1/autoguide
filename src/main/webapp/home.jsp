@@ -35,7 +35,7 @@ body {
     align-items: center;
 }
 
-.navbar a {
+.navbar button {
     color: white;
     text-decoration: none;
     background: red;
@@ -92,6 +92,11 @@ button:hover {
     background-color: #0056b3;
 }
 
+.navbar button:hover{
+background-color: pink;
+color:black;
+}
+
 /* -------- VEHICLE CARDS -------- */
 .vehicle-card {
     background: white;
@@ -144,7 +149,9 @@ align-items: center;
 <!-- NAVBAR -->
 <div class="navbar">
     <div>AutoGuide – Welcome <b><%= username %></b></div>
-    <a href="logout">Logout</a>
+    <form action="controller" method="post">
+    	<button type="submit" name="input" value="logout">Logout</button>
+    </form>
 </div>
 
 <div class="container">
