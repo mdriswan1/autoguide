@@ -103,7 +103,9 @@ button:focus {
 					<label for='password'> Password: </label> <input type="password"
 						name="password" id='password' required>
 				</div>
-
+				<div><div>
+					<input type="checkbox" name="remember" value="true" id-"remember"><label for="remember">remember me	</label></div>		
+				</div>
 
 				<button type="submit">Login</button>
 			</form>

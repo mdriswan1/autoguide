@@ -29,7 +29,11 @@ public class SignupService implements Service{
 		String city=req.getParameter("city");
 		
 		password=BCrypt.hashpw(password,BCrypt.gensalt(10));
-		return SignupDao.createUser(fullname, email, password, city);
+		boolean flag= SignupDao.createUser(fullname, email, password, city);
+		if(!flag) {
+			req.setAttribute("error", "Email is already exist");
+		}
+		return flag;
 		
 	}
 }

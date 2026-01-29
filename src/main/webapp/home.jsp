@@ -5,10 +5,12 @@
 <%
     String username = (String) session.getAttribute("name");
     if (username == null) {
-        response.sendRedirect("login.jsp");
-        return;
+    	 %>
+       <jsp:forward page="controller?input=homeforward"></jsp:forward>
+       
+        <%  
     }
-%>
+%> 
 
 <!DOCTYPE html>
 <html>
@@ -326,6 +328,8 @@ function populateCards(data) {
                         v.length_mm + ' × ' + v.width_mm + ' × ' + v.height_mm +
                     '</p>' +
                     '<p><b>Description:</b> ' + v.description + '</p>' +
+                    '<a href="'+v.link+'">about</a>'+
+                 
                 '</div>' +
             '</div>';
     }
