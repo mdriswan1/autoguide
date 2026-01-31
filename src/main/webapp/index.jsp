@@ -95,8 +95,10 @@
     </div>
 
     <!-- Vehicles container -->
+   
     <div class="vehicles-container" id="vehiclesContainer">
         <!-- JS will insert vehicle cards here -->
+        
     </div>
 
     <!-- Signup CTA -->
