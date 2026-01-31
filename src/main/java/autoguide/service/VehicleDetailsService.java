@@ -49,6 +49,7 @@ public class VehicleDetailsService {
 	 * 
 	 * @param type(vehicle_type)
 	 * @return vehicle_details
+	 * 
 	 */
 	public static String vehicleTypeDetails(String type) {
 		return VehicleDetailsDao.vehicleDetails(type, null, null);
@@ -60,6 +61,7 @@ public class VehicleDetailsService {
 	 * @param type(manufacturer)
 	 * @return vehicle_details
 	 */
+
 	public static String manufacturerDetails(String type) {
 		return VehicleDetailsDao.vehicleDetails(null, type, null);
 	}

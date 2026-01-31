@@ -43,7 +43,7 @@ public class VehicleDetailsDao {
 	 * rs.getInt("seating_capacity"), rs.getString("engine_capacity"), rs.getInt("length_mm"), rs.getInt("width_mm"),
 	 * rs.getInt("height_mm"), rs.getString("description"), rs.getString("link")); all.add(v);
 	 * 
-	 * } Gson gson = new Gson(); String json = gson.toJson(all); System.out.println(json);
+	 * <<<<<<< HEAD } Gson gson = new Gson(); String json = gson.toJson(all); System.out.println(json);
 	 * logger.debug("all vehicle details are get from the database"); return json;
 	 * 
 	 * } catch (SQLException e) {
@@ -170,16 +170,19 @@ public class VehicleDetailsDao {
 				ps.setString(1, manufacturer);
 				ps.setString(2, model_name);
 			}
+
 			rs = ps.executeQuery();
 			String image = "";
 			while (rs.next()) {
 				if (rs.getBytes("image_data") != null) {
 					image = Base64.getEncoder().encodeToString(rs.getBytes("image_data"));
 				}
+
 				AllVehicleDetails v = new AllVehicleDetails(image, rs.getString("type_name"), rs.getString("model_name"),
 								rs.getString("fuel_type"), rs.getInt("year_of_manuf"), rs.getInt("seating_capacity"),
 								rs.getString("engine_capacity"), rs.getInt("length_mm"), rs.getInt("width_mm"), rs.getInt("height_mm"),
 								rs.getString("description"), rs.getString("link"));
+
 				all.add(v);
 
 			}
@@ -223,4 +226,87 @@ public class VehicleDetailsDao {
 		}
 	}
 
+	/**
+	 * this method is return vehicle details based on vehicle type
+	 * 
+	 * @param type
+	 * @return
+	 */
+
+	public static String vehicleTypeDetails(String type) {
+
+		try (Connection con = CreateConnection.getConnection();
+						PreparedStatement ps = con.prepareStatement(
+										"select vehicle_news.link,vehicle_model.image_data,vehicle_type.type_name,vehicle_model.model_name,vehicle_model.fuel_type,vehicle_model.year_of_manuf,vehicle_model.seating_capacity,vehicle_model.engine_capacity,vehicle_model.length_mm,vehicle_model.width_mm,vehicle_model.height_mm,vehicle_model.description from vehicle_model inner join vehicle_type on vehicle_model.type_id=vehicle_type.type_id and vehicle_model.type_id in (select type_id from vehicle_type where type_name=?)left join vehicle_news on vehicle_model.model_id=vehicle_news.model_id;")) {
+			ps.setString(1, type);
+
+			List<AllVehicleDetails> all = new ArrayList<AllVehicleDetails>();
+			ResultSet rs = ps.executeQuery();
+			String image = "";
+			while (rs.next()) {
+				if (rs.getBytes("image_data") != null) {
+					image = Base64.getEncoder().encodeToString(rs.getBytes("image_data"));
+				}
+				AllVehicleDetails v = new AllVehicleDetails(image, rs.getString("type_name"), rs.getString("model_name"),
+								rs.getString("fuel_type"), rs.getInt("year_of_manuf"), rs.getInt("seating_capacity"),
+								rs.getString("engine_capacity"), rs.getInt("length_mm"), rs.getInt("width_mm"), rs.getInt("height_mm"),
+								rs.getString("description"), rs.getString("link"));
+				all.add(v);
+
+			}
+			Gson gson = new Gson();
+			String json = gson.toJson(all);
+			System.out.println(json);
+			logger.debug("get all the vehicle details using manufacturer and model_name ");
+			return json;
+
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			logger.error("error while fetching details for manufacturer and model_name ");
+			return null;
+		}
+	}
+
+	/**
+	 * this method is return vehicle details based on manufacture given by vehicle type
+	 * 
+	 * @param type
+	 * @return
+	 */
+
+	public static String manufacturerDetails(String type) {
+
+		try (Connection con = CreateConnection.getConnection();
+						PreparedStatement ps = con.prepareStatement(
+										"select vehicle_news.link,vehicle_model.image_data,vehicle_type.type_name,vehicle_model.model_name,vehicle_model.fuel_type,vehicle_model.year_of_manuf,vehicle_model.seating_capacity,vehicle_model.engine_capacity,vehicle_model.length_mm,vehicle_model.width_mm,vehicle_model.height_mm,vehicle_model.description from vehicle_model inner join vehicle_type on vehicle_model.type_id=vehicle_type.type_id and vehicle_model.manufacturer_id in (select manufacturer_id from manufacturer where name=?)left join vehicle_news on vehicle_model.model_id=vehicle_news.model_id;")) {
+			ps.setString(1, type);
+
+			List<AllVehicleDetails> all = new ArrayList<AllVehicleDetails>();
+			ResultSet rs = ps.executeQuery();
+			String image = "";
+			while (rs.next()) {
+				if (rs.getBytes("image_data") != null) {
+					image = Base64.getEncoder().encodeToString(rs.getBytes("image_data"));
+				}
+				AllVehicleDetails v = new AllVehicleDetails(image, rs.getString("type_name"), rs.getString("model_name"),
+								rs.getString("fuel_type"), rs.getInt("year_of_manuf"), rs.getInt("seating_capacity"),
+								rs.getString("engine_capacity"), rs.getInt("length_mm"), rs.getInt("width_mm"), rs.getInt("height_mm"),
+								rs.getString("description"), rs.getString("link"));
+				all.add(v);
+
+			}
+			Gson gson = new Gson();
+			String json = gson.toJson(all);
+			System.out.println(json);
+			logger.debug("get all the vehicle details using manufacturer and model_name ");
+			return json;
+
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			logger.error("error while fetching details for manufacturer and model_name ");
+			return null;
+		}
+	}
 }
