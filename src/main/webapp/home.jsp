@@ -50,7 +50,7 @@ body {
 }
 
 .navbar #appname {
-	font-size: 24px;
+	font-size: 20px;
 	font-weight: bold;
 	color: white;
 	
