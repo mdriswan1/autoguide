@@ -170,27 +170,29 @@ public class VehicleDetailsDao {
 				ps.setString(1, manufacturer);
 				ps.setString(2, model_name);
 			}
+			if (ps != null) {
+				rs = ps.executeQuery();
+				String image = "";
+				while (rs.next()) {
+					if (rs.getBytes("image_data") != null) {
+						image = Base64.getEncoder().encodeToString(rs.getBytes("image_data"));
+					}
 
-			rs = ps.executeQuery();
-			String image = "";
-			while (rs.next()) {
-				if (rs.getBytes("image_data") != null) {
-					image = Base64.getEncoder().encodeToString(rs.getBytes("image_data"));
+					AllVehicleDetails v = new AllVehicleDetails(image, rs.getString("type_name"), rs.getString("model_name"),
+									rs.getString("fuel_type"), rs.getInt("year_of_manuf"), rs.getInt("seating_capacity"),
+									rs.getString("engine_capacity"), rs.getInt("length_mm"), rs.getInt("width_mm"), rs.getInt("height_mm"),
+									rs.getString("description"), rs.getString("link"));
+
+					all.add(v);
+
 				}
-
-				AllVehicleDetails v = new AllVehicleDetails(image, rs.getString("type_name"), rs.getString("model_name"),
-								rs.getString("fuel_type"), rs.getInt("year_of_manuf"), rs.getInt("seating_capacity"),
-								rs.getString("engine_capacity"), rs.getInt("length_mm"), rs.getInt("width_mm"), rs.getInt("height_mm"),
-								rs.getString("description"), rs.getString("link"));
-
-				all.add(v);
-
+				Gson gson = new Gson();
+				String json = gson.toJson(all);
+				System.out.println(json);
+				logger.debug("get all the vehicle details using manufacturer and model_name ");
+				return json;
 			}
-			Gson gson = new Gson();
-			String json = gson.toJson(all);
-			System.out.println(json);
-			logger.debug("get all the vehicle details using manufacturer and model_name ");
-			return json;
+			return null;
 		} catch (SQLException e) {
 			// TODO: handle exception
 			e.printStackTrace();
