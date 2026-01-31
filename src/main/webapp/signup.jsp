@@ -71,7 +71,7 @@ button {
 
 a {
 	text-decoration: none;
-	color: red;
+	color: rgb(180,0,0);
 }
 
 h1 {
@@ -89,8 +89,8 @@ button:focus {
 }
 
 form p {
-	color: rgb(190, 0, 0);
-	font-size: 10px;
+	color: rgb(210, 0, 0);
+	font-size: 12px;
 }
 </style>
 </head>
@@ -133,7 +133,7 @@ form p {
 			</div>
 
 			<hr>
-			<div style="color: red;">
+			<div style="color: rgb(210,0,0);">
 				<%=request.getAttribute("error") != null ? request.getAttribute("error") : ""%>
 			</div>
 		</div>

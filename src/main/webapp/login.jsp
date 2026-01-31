@@ -70,7 +70,7 @@ button {
 
 a {
 	text-decoration: none;
-	color: red;
+	color: rgb(180,0,0);
 }
 
 h1 {
@@ -89,6 +89,9 @@ button:focus {
 }
 #erroremail,#errorpassword{
 	
+	color: rgb(210, 0, 0);
+	font-size: 12px;
+
 }
 </style>
 
@@ -99,17 +102,17 @@ button:focus {
 		<div id='middle'>
 			<h1>Login</h1>
 
-			<form action="controller" method="post" onsubmit="return velidation()">
+			<form action="controller" method="post" onsubmit="return validation()">
 
 				<input type="hidden" name="input" value="login">
 				<div>
-					<label for='email'> Email: </label> <input type="email"
-						name="email" id='email' required>
+					<label for='email'> Email: </label> <input type="text"
+						name="email" id='email' >
 						<p id="erroremail"></p>
 				</div>
 				<div>
 					<label for='password'> Password: </label> <input type="password"
-						name="password" id='password' required>
+						name="password" id='password' >
 						<p id="errorpassword"></p>
 				</div>
 				<div>
@@ -127,14 +130,14 @@ button:focus {
 			</div>
 
 			<hr>
-			<div style="color: rgb(255, 0, 0);">
+			<div style="color: rgb(210, 0, 0);">
 				<%=request.getAttribute("error") != null ? request.getAttribute("error") : ""%>
 			</div>
 		</div>
 	</div>
 	<script>
 	function validation(){
-		let email=document.getElemantById("email").value;
+		let email=document.getElementById("email").value;
 		let password=document.getElementById("password").value;
 		
 		let erroremail=document.getElementById("erroremail");
@@ -143,9 +146,16 @@ button:focus {
 		erroremail.innerText="";
 		errorpassword.innerText="";
 		
-		if(!email ||!password){
+		if((!email ||!password) ||(password.length<6)||(!email.includes("@") ||!email.includes(".com"))){
 			erroremail.innerText=(!email)?"Enter the email":"";
 			errorpassword.innerText=(!password)?"Enter password":"";
+			
+			if(password && (password.length<6)){
+				errorpassword.innerText="Enter password more than 6 character";
+			}
+			if(email && (!email.includes("@") ||!email.includes(".com"))){
+				erroremail.innerText="Enter valid email";
+			}
 			return false;
 		}else{
 			return true;
