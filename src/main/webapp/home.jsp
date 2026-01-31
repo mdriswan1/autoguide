@@ -31,7 +31,7 @@ body {
     background-color: #222;
     color: white;
     padding: 15px 20px;
-
+	height:50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -43,6 +43,17 @@ body {
     padding: 6px 12px;
     border-radius: 4px;
     font-size: 14px;
+}
+.navbar button:hover{
+	background-color: pink;
+	color:black;
+}
+
+.navbar #appname {
+	font-size: 24px;
+	font-weight: bold;
+	color: white;
+	
 }
 
 /* -------- CONTAINER -------- */
@@ -92,10 +103,7 @@ button {
 button:hover {
     background-color: #0056b3;
 }
-.navbar button:hover{
-	background-color: pink;
-	color:black;
-}
+
 /* -------- VEHICLE CARDS -------- */
 .vehicle-card {
     background: white;
@@ -145,13 +153,8 @@ align-items: center;
 
 <body>
 
-<!-- NAVBAR -->
-<div class="navbar">
-    <div>AutoGuide – Welcome <b><%= username %></b></div>
-    <form action="controller" method="post">
-    	<button name="input" value="logout">Logout</button>
-    </form>
-</div>
+
+<jsp:include page="header.jsp"/>
 
 <div class="container">
 

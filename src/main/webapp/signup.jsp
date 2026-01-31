@@ -92,9 +92,41 @@ form p {
 	color: rgb(210, 0, 0);
 	font-size: 12px;
 }
+
+.navbar {
+	background-color: #333;
+	color: #fff;
+	padding: 12px 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.navbar #appname {
+	font-size: 24px;
+	font-weight: bold;
+	color: white;
+	
+}
+
+.navbar form button {
+	color: white;
+	margin-right: 15px;
+	padding: 6px 12px;
+	border: 1px solid red;
+	border-radius: 4px;
+	font-size: 14px;
+	font-weight: normal;
+}
+
+.navbar form button:hover {
+	background-color: pink;
+	color: #333;
+}
 </style>
 </head>
 <body>
+<jsp:include page="header.jsp"/>
 	<div id='full'>
 		<div id='middle'>
 			<h1>User Registration</h1>

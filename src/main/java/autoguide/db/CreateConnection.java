@@ -3,14 +3,8 @@ package autoguide.db;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import autoguide.servlet.FrontController;
 
 /*
  *this class is used to get the connection from the data source
@@ -20,18 +14,22 @@ import autoguide.servlet.FrontController;
 public class CreateConnection {
 	private static final Logger logger = LogManager.getLogger(CreateConnection.class);
 
-	public static Connection getConnection() {
-//		InitialContext context;
-		Connection connection = null;
+	static {
 		try {
 			Class.forName("org.postgresql.Driver");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public static Connection getConnection() {
+		// InitialContext context;
+		Connection connection = null;
+
 		try {
-//			context = new InitialContext();
-//			DataSource dataSource=(DataSource) context.lookup("java:comp/env/jdbc/autoguide");
+			// context = new InitialContext();
+			// DataSource dataSource=(DataSource) context.lookup("java:comp/env/jdbc/autoguide");
 
 			connection = HikariConnection.getDataSource().getConnection();
 			logger.debug("database connection is created ");

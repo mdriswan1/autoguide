@@ -15,22 +15,22 @@ body {
 .navbar {
 	background-color: #333;
 	color: #fff;
+	height:50px;
 	padding: 12px 20px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
 
-.navbar .brand {
+#appname {
 	font-size: 24px;
 	font-weight: bold;
 	color: white;
-	text-decoration: none;
+	
 }
 
 .navbar .nav-buttons button {
 	color: black;
-	
 	margin-left: 15px;
 	padding: 6px 12px;
 	border: 1px solid white;
@@ -42,7 +42,12 @@ body {
 	background-color: white;
 	color: #333;
 }
-
+.navbar #appname {
+	font-size: 24px;
+	font-weight: bold;
+	color: white;
+	
+}
 /* Vehicles */
 .vehicles-container {
 	width: 90%;
@@ -115,19 +120,9 @@ body {
 </head>
 <body>
 
-	<!-- Navbar -->
-	<div class="navbar">
-		<div class="brand">AutoGuide</div>
-		<div class="nav-buttons">
-		<form action="controller" method="post">
-			<button type="submit" name="input" value="frontlogin">Login</button>
-			<button type="submit" name="input" value="frontsignup">Signup</button>
-		</form>
-			<!--  <a href="controller?input=frontlogin">Login</a> <a href="controller?input=frontsignup">Signup</a>-->
-		</div>
-	</div>
+	
+	<jsp:include page="header.jsp"/>
 
-	<!-- Vehicles container -->
 	<div class="vehicles-container" id="vehiclesContainer">
 		<!-- JS will insert vehicle cards here -->
 	</div>

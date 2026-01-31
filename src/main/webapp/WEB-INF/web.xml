@@ -25,7 +25,9 @@
    <context-param> 	
   	<param-name>phone</param-name>
   	<param-value>+91 9867543120</param-value>
-  	
   </context-param>
-  
+  <context-param>
+  <param-name>application_name</param-name>
+  <param-value>AutoGuide</param-value>
+  </context-param>
 </web-app>
