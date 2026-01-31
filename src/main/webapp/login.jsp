@@ -83,6 +83,10 @@ button:focus {
 	background-color:pink;
 }
 
+#remember{
+	width:12px;
+	height:12px;
+}
 </style>
 
 </head>
@@ -104,13 +108,13 @@ button:focus {
 						name="password" id='password' required>
 				</div>
 				<div><div>
-					<input type="checkbox" name="remember" value="true" id-"remember"><label for="remember">remember me	</label></div>		
+					<input type="checkbox" name="remember" value="true" id="remember"><label for="remember" id="remember"> remember me	</label></div>		
 				</div>
 
 				<button type="submit">Login</button>
 			</form>
 
-			<div>New user?<a href="signup.jsp"> Register</a></div>
+			<div>New User?<a href="controller?input=frontsignup"> Register</a></div>
 		
 		<hr>
 		<div style="color: rgb(255,0,0);">

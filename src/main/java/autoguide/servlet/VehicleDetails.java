@@ -1,35 +1,28 @@
 package autoguide.servlet;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Arrays;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import autoguide.service.GetColumnService;
+import autoguide.service.VehicleDetailsService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import com.google.gson.Gson;
-
-import autoguide.service.GetColumnService;
-import autoguide.service.VehicleDetailsService;
-
 
 /**
- * Servlet implementation class VehicleDetails this servlet class is used for
- * load data from the database sends json as a response
+ * Servlet implementation class VehicleDetails this servlet class is used for load data from the database sends json as a response
  * 
  */
 @WebServlet("/api/vehicledetails/*")
 public class VehicleDetails extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final Logger logger=LogManager.getLogger(VehicleDetails.class);
+	private static final Logger logger = LogManager.getLogger(VehicleDetails.class);
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -40,11 +33,9 @@ public class VehicleDetails extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// in this class we only retuen the response as json so we declared it as
 		// application/json to inform
 		response.setContentType("application/json");
@@ -55,7 +46,8 @@ public class VehicleDetails extends HttpServlet {
 			// if the path is not null then we divide the path depends the path give the
 			// results
 			paths = path.split("/");
-			System.out.println(Arrays.toString(paths));}
+			System.out.println(Arrays.toString(paths));
+		}
 		System.out.println(Arrays.toString(paths));
 
 		if ("".equals(path) || "/".equals(path) || path.equals(null)) {
@@ -71,54 +63,58 @@ public class VehicleDetails extends HttpServlet {
 			print.write(GetColumnService.getVehicleType());
 		} else if ("manufacturer".equals(paths[1])) {
 			String type = paths[2];
-			logger.debug("load all vehicle manufacturer depends on vehicle type "+type);
+			logger.debug("load all vehicle manufacturer depends on vehicle type " + type);
 			// if the path contain manufacturer as a value we will return the manufacturer details as
-						// String as a json format
-			
+			// String as a json format
+
 			System.out.println(type);
 			print.write(GetColumnService.getVehicleManufacturer(type));
 		} else if ("model_name".equals(paths[1])) {
 			String type = paths[2];
-			logger.debug("load all vehicle  model_name depends on manufacturer  "+ type);
+			logger.debug("load all vehicle  model_name depends on manufacturer  " + type);
 			// if the path contain model_name as a value we will return the models as
 			// String as a json format
-			
+
 			System.out.println(type);
 			print.write(GetColumnService.getVehicleModel(type));
 		} else if ("getvehicle".equals(paths[1])) {
 			// if the path contain getvehicle as a value we will return the details of vehicle as
 			// String as a json format
 			String manu = paths[2];
-			String model=paths[3];
-			
-			logger.debug("load all vehicle   depends on model_name  "+ model);
+			String model = paths[3];
+
+			logger.debug("load all vehicle   depends on model_name and manufacturer " + model + ", " + manu);
 			System.out.println(model);
-			String json = VehicleDetailsService.vehicleDetails(manu,model);
+			String json = VehicleDetailsService.vehicleDetails(manu, model);
 			print.write(json);
-		}else if("welcome".equals(paths[1])) {
-			PrintWriter pw=response.getWriter();
-			String json=VehicleDetailsService.getWelcomeDetails();
+		} else if ("welcome".equals(paths[1])) {
+			PrintWriter pw = response.getWriter();
+			// this mehtod is used for get vehicle details for guest user
+			logger.debug("load some vehicle to display for guest users");
+			String json = VehicleDetailsService.getWelcomeDetails();
 			pw.write(json);
-		}else if("vehicletypedata".equals(paths[1])) {
-			PrintWriter pw=response.getWriter();
-			String type=paths[2];
-			String json=VehicleDetailsService.vehicleTypeDetails(type);
+		} else if ("vehicletypedata".equals(paths[1])) {
+			PrintWriter pw = response.getWriter();
+			String type = paths[2];
+			// this method is used for load vehicle based o vehicle type eg.two_wheeler
+			logger.debug("load vehicle based on vehicle type " + type);
+			String json = VehicleDetailsService.vehicleTypeDetails(type);
 			pw.write(json);
-		}else if("manufacturerdata".equals(paths[1])) {
-			PrintWriter pw=response.getWriter();
-			String type=paths[2];
-			String json=VehicleDetailsService.manufacturerDetails(type);
+		} else if ("manufacturerdata".equals(paths[1])) {
+			PrintWriter pw = response.getWriter();
+			String type = paths[2];
+			// this method is used for load vehicle based on manufacturer eg.tvs
+			logger.debug("load vehicle based on manufacturer " + type);
+			String json = VehicleDetailsService.manufacturerDetails(type);
 			pw.write(json);
 		}
 
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

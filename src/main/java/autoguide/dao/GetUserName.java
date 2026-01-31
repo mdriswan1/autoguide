@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import autoguide.db.CreateConnection;
+
 /**
  * this class is used to get the user-name from the data to how in the home page
  */
