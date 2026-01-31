@@ -1,7 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <% String input=request.getParameter("input");
-if("frontlogin".equalsIgnoreCase(input)||"frontsignup".equalsIgnoreCase(input)||"login".equalsIgnoreCase(input)||"signup".equalsIgnoreCase(input))
+ if((request.getSession().getAttribute("name")!=null)||("forwardlogin".equalsIgnoreCase(input))){ %>
+<div class="navbar">
+<h1 id="appname"><%=application.getInitParameter("application_name")%> – Welcome <b><%= session.getAttribute("name") %></b></h1>
+    <form action="controller" method="post">
+    	<button name="input" value="logout">Logout</button>
+    </form>
+</div>
+<%} else if("frontlogin".equalsIgnoreCase(input)||"frontsignup".equalsIgnoreCase(input)||"login".equalsIgnoreCase(input)||"signup".equalsIgnoreCase(input))
 {%>
 
 <div class="navbar">
@@ -20,12 +27,4 @@ if("frontlogin".equalsIgnoreCase(input)||"frontsignup".equalsIgnoreCase(input)||
 		</form>
 	</div>
 </div>
-
-<%}else if((request.getSession().getAttribute("name")!=null)||("forwardlogin".equalsIgnoreCase(input))){ %>
-<div class="navbar">
-<h1 id="appname"><%=application.getInitParameter("application_name")%> – Welcome <b><%= session.getAttribute("name") %></b></h1>
-    <form action="controller" method="post">
-    	<button name="input" value="logout">Logout</button>
-    </form>
-</div>
-<%}  %>
+<% }%>
