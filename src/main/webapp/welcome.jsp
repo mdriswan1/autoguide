@@ -121,7 +121,15 @@ body {
 <body>
 
 	
-	<jsp:include page="header.jsp"/>
+	<div class="navbar">
+	<h1 id="appname"><%=application.getInitParameter("application_name")%></h1>
+	<div class="nav-buttons">
+		<form action="controller" method="post">
+			<button type="submit" name="input" value="frontlogin">Login</button>
+			<button type="submit" name="input" value="frontsignup">Signup</button>
+		</form>
+	</div>
+</div>
 
 	<div class="vehicles-container" id="vehiclesContainer">
 		<!-- JS will insert vehicle cards here -->

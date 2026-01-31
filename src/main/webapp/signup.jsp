@@ -126,7 +126,12 @@ form p {
 </style>
 </head>
 <body>
-<jsp:include page="header.jsp"/>
+<div class="navbar">
+	<h1 id="appname"><%=application.getInitParameter("application_name")%></h1>
+	<form action="controller" method="post">
+		<button type="submit" name="input" value="forward">Back</button>
+	</form>
+</div>
 	<div id='full'>
 		<div id='middle'>
 			<h1>User Registration</h1>

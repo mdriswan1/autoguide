@@ -154,7 +154,12 @@ align-items: center;
 <body>
 
 
-<jsp:include page="header.jsp"/>
+<div class="navbar">
+<h1 id="appname"><%=application.getInitParameter("application_name")%> – Welcome <b><%= session.getAttribute("name") %></b></h1>
+    <form action="controller" method="post">
+    	<button name="input" value="logout">Logout</button>
+    </form>
+</div>
 
 <div class="container">
 
