@@ -200,7 +200,8 @@ form p {
 					|| (password && password.includes(" "))
 					|| (password && password.length < 6)
 					|| (cpassword && password && cpassword.length < 6)) {
-
+				
+				fullname=fullname.trim();
 				errorname.innerText = (!fullname) ? "Enter the User name" : "";
 				erroremail.innerText = (!email) ? "Enter the email" : "";
 				errorpassword.innerText = (!password) ? "Enter the password"

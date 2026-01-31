@@ -33,7 +33,7 @@ public class LoginService implements Service {
 
 		boolean flag = false;
 		// if the attempts less than max then we will validate the email and password
-		if (validateAttempts(req) == true) {
+		if (validateAttempts(req) == true && credentialValidation(req)) {
 			String email = req.getParameter("email");
 			String password = req.getParameter("password");
 			flag = LoginDao.userValidate(email, password);
@@ -62,6 +62,24 @@ public class LoginService implements Service {
 
 		}
 
+	}
+
+	/**
+	 * validate the email and password
+	 * 
+	 * @param req
+	 * @return
+	 */
+	private static boolean credentialValidation(HttpServletRequest req) {
+		String email = req.getParameter("email");
+		String password = req.getParameter("password");
+		if (!email.contains("@") || !email.contains(".com")) {
+			return false;
+		}
+		if (password.length() < 6) {
+			return false;
+		}
+		return true;
 	}
 
 	/**
