@@ -321,12 +321,9 @@ function populateCards(data) {
                         v.length_mm + ' × ' + v.width_mm + ' × ' + v.height_mm +
                     '</p>' +
                     '<p><b>Description:</b> ' + v.description + '</p>' +
-<<<<<<< HEAD
                     '<a href="'+v.link+'">about</a>'+
                  
-=======
-                    '<a href="'+v.link+'">about vehicle </a>'+
->>>>>>> branch 'master' of https://github.com/mdriswan1/autoguide.git
+
                 '</div>' +
             '</div>';
     }
