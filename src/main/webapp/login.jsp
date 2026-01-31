@@ -1,4 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,13 +23,11 @@ body {
 	align-items: center;
 	height: 100vh;
 	width: 100vw;
-	background: black;
-	background-image: url("images/car1.png");
-	background-opacity:0.8;
+	background: white;
+	background-image: url("images/background.jpg");
 	background-size: cover;
 	background-position: center center;
 	background-repeat: no-repeat;
-	image-rendering: -webkit-optimize-contrast;
 }
 
 #middle {
@@ -39,9 +38,9 @@ body {
 	height: 60%;
 	width: 30%;
 	border-radius: 20px;
-	background: black;
-	opacity: 0.7;
-	color: white;
+	background: rgba(150, 150, 150, 0.9);
+	border: 1px solid gray;
+	color: black;
 }
 
 form {
@@ -55,29 +54,42 @@ form {
 input {
 	width: 100%;
 	height: 30px;
-	padding: 5px
+	padding: 5px;
+	border-radius: 10px;
 }
 
 button {
 	width: 100%;
 	height: 30px;
-    font-weight: bold;
-    color: black;
-    cursor:pointer;
+	font-weight: bold;
+	background-color: red;
+	color: white;
+	cursor: pointer;
+	border-radius: 10px;
 }
 
 a {
 	text-decoration: none;
-	color:white;
+	color: red;
 }
- h1 {
 
-        font-size: 26px;
-        font-weight: bold;
-        color: white;
-    }
+h1 {
+	font-size: 26px;
+	font-weight: bold;
+	color: black;
+}
 
+button:focus {
+	background-color: pink;
+}
 
+#remember {
+	width: 12px;
+	height: 12px;
+}
+#erroremail,#errorpassword{
+	
+}
 </style>
 
 </head>
@@ -87,29 +99,58 @@ a {
 		<div id='middle'>
 			<h1>Login</h1>
 
-			<form action="controller" method="post">
+			<form action="controller" method="post" onsubmit="return velidation()">
 
 				<input type="hidden" name="input" value="login">
 				<div>
 					<label for='email'> Email: </label> <input type="email"
 						name="email" id='email' required>
+						<p id="erroremail"></p>
 				</div>
 				<div>
 					<label for='password'> Password: </label> <input type="password"
 						name="password" id='password' required>
+						<p id="errorpassword"></p>
 				</div>
-
+				<div>
+					<div>
+						<input type="checkbox" name="remember" value="true" id="remember"><label
+							for="remember" id="remember"> remember me </label>
+					</div>
+				</div>
 
 				<button type="submit">Login</button>
 			</form>
 
-			<a href="signup.jsp">New user? Register</a>
-		
-		<hr>
-		<div style="color: rgb(255,0,0);">
-			<%=request.getAttribute("error") != null ? request.getAttribute("error") : ""%>
+			<div>
+				New User?<a href="controller?input=frontsignup"> Register</a>
+			</div>
+
+			<hr>
+			<div style="color: rgb(255, 0, 0);">
+				<%=request.getAttribute("error") != null ? request.getAttribute("error") : ""%>
+			</div>
 		</div>
-</div>
 	</div>
+	<script>
+	function validation(){
+		let email=document.getElemantById("email").value;
+		let password=document.getElementById("password").value;
+		
+		let erroremail=document.getElementById("erroremail");
+		let errorpassword=document.getElementById("errorpassword");
+		
+		erroremail.innerText="";
+		errorpassword.innerText="";
+		
+		if(!email ||!password){
+			erroremail.innerText=(!email)?"Enter the email":"";
+			errorpassword.innerText=(!password)?"Enter password":"";
+			return false;
+		}else{
+			return true;
+		}
+	}
+	</script>
 </body>
 </html>
