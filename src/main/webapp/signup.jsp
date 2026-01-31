@@ -1,6 +1,6 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 
 <html>
 <head>
@@ -157,7 +157,12 @@ form p {
 			errorpassword.innerText = "";
 			errorcpassword.innerText = "";
 			// mandatory fields
-			if (!fullname || !email || !password || !cpassword) {
+			if ((!fullname || !email || !password || !cpassword)
+					|| (email && (!email.includes('@') || !email
+							.includes('.com')))
+					|| (password && password.includes(" "))
+					|| (password && password.length < 6)
+					|| (cpassword && password && cpassword.length < 6)) {
 
 				errorname.innerText = (!fullname) ? "Enter the User name" : "";
 				erroremail.innerText = (!email) ? "Enter the email" : "";
@@ -178,13 +183,11 @@ form p {
 				} else if (password && password.length < 6) {
 					errorpassword.innerText = "password should be greater than 6 character";
 				}
-				if(cpassword&&password&&cpassword.length<6){
+				if (cpassword && password && cpassword.length < 6) {
 					errorcpassword.innerText = "confirm password should be greater than 6 character";
 				}
-				
-
 				return false;
-			}else if (cpassword && password && cpassword !== password) {
+			} else if (cpassword && password && cpassword !== password) {
 				errorcpassword.innerText = "Password and confirm password must be same";
 				return false;
 			} else {
