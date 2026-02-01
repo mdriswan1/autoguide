@@ -35,16 +35,6 @@ public class VehicleDetailsService {
 	}
 
 	/**
-	 * this method return first 3 vehicle details (used for before login)
-	 * 
-	 * @return 3 vehicle details
-	 */
-	public static String getWelcomeDetails() {
-		logger.debug("getWelcomeDetails method is called in service module");
-		return VehicleDetailsDao.getsomeDetails();
-	}
-
-	/**
 	 * used to get the vehicle details base on the vehicle_type(two_wheeler,four_wheeler)
 	 * 
 	 * @param type(vehicle_type)
@@ -66,4 +56,13 @@ public class VehicleDetailsService {
 		return VehicleDetailsDao.vehicleDetails(null, type, null);
 	}
 
+	/**
+	 * this method return first 3 vehicle details (used for before login)
+	 * 
+	 * @return 3 vehicle details
+	 */
+	public static String getWelcomeDetails() {
+		logger.debug("getWelcomeDetails method is called in service module");
+		return VehicleDetailsDao.getsomeDetails();
+	}
 }

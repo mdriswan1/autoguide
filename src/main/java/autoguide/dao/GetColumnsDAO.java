@@ -21,58 +21,34 @@ public class GetColumnsDAO {
 	private static final Logger logger = LogManager.getLogger(GetColumnsDAO.class);
 
 	/**
-	 * this method is used to get the vehicle type from the vehicle type table from the data base
+	 * this method is used to get the drop down option for the user
 	 * 
-	 * @return vehicle type
+	 * @param vehicle_type
+	 * @param manufacturer
+	 * @return
 	 */
-	/*
-	 * public static String getVehicleType() { List<String> types = new ArrayList<String>(); try (Connection con =
-	 * CreateConnection.getConnection(); Statement s = con.createStatement()) { ResultSet rs =
-	 * s.executeQuery("select distinct(type_name) from vehicle_type"); while (rs.next()) { types.add(rs.getString("type_name")); } Gson gson
-	 * = new Gson(); String json = gson.toJson(types); logger.debug("vehicle types return json format"); return json; } catch (SQLException
-	 * e) { // TODO: handle exception e.printStackTrace(); logger.error("details not get from the database"); return null; } }
-	 * 
-	 *//**
-		 * this method is used to get the manufacturer from the manufacturer table from the data base based on the vehicle type
-		 * 
-		 * @return manufacturer name
-		 */
-
-	/*
-	 * public static String getVehicleManufacturer(String vehicle_type) { List<String> types = new ArrayList<String>(); try (Connection con
-	 * = CreateConnection.getConnection(); PreparedStatement ps = con.prepareStatement(
-	 * "select name from  manufacturer where type_id in(select type_id from vehicle_type where type_name=?)")) { ps.setString(1,
-	 * vehicle_type); ResultSet rs = ps.executeQuery(); while (rs.next()) { types.add(rs.getString("name")); } Gson gson = new Gson();
-	 * String json = gson.toJson(types); logger.debug("manufacturer details based on vehicle_type return json format"); return json; } catch
-	 * (SQLException e) { // TODO: handle exception e.printStackTrace(); logger.error("details not get from the database"); return null; } }
-	 * 
-	 *//**
-		 * this method is used to get the model name from the vehicle_model table from the data base based on the manufacturer
-		 * 
-		 * @return model
-		 *//*
-			 * public static String getVehicleModel(String manufaturer) { List<String> types = new ArrayList<String>(); try (Connection con
-			 * = CreateConnection.getConnection(); PreparedStatement ps = con.prepareStatement(
-			 * "select model_name from vehicle_model where manufacturer_id in (select manufacturer_id from manufacturer where name =?)")) {
-			 * ps.setString(1, manufaturer); ResultSet rs = ps.executeQuery(); while (rs.next()) { types.add(rs.getString("model_name")); }
-			 * Gson gson = new Gson(); String json = gson.toJson(types);
-			 * logger.debug("vehicle_details return based on manufactrer and model_name return in json format"); return json; } catch
-			 * (SQLException e) { // TODO: handle exception e.printStackTrace(); logger.error("details not get from the database");
-			 * 
-			 * return null; } }
-			 */
 
 	public static String vehicleColumn(String vehicle_type, String manufacturer) {
 		List<String> types = new ArrayList<String>();
 		PreparedStatement ps = null;
 		try (Connection con = CreateConnection.getConnection()) {
+
 			if (vehicle_type == null && manufacturer == null) {
+				/**
+				 * this load the vehicle type to shown in the drop down option
+				 */
 				ps = con.prepareStatement("select distinct(type_name) from vehicle_type");
 				ResultSet rs = ps.executeQuery();
 				while (rs.next()) {
 					types.add(rs.getString("type_name"));
 				}
+				logger.debug("get the vehicle type");
 			} else if (vehicle_type != null && manufacturer == null) {
+				/**
+				 * this will execute when the user enter the vehicle type based on the vehicle type it will return the manufacturer
+				 * (eg:two_wheeler->tvs,bajaj)
+				 */
+
 				ps = con.prepareStatement(
 								"select name from  manufacturer where type_id in(select type_id from vehicle_type where type_name=?)");
 				ps.setString(1, vehicle_type);
@@ -80,8 +56,12 @@ public class GetColumnsDAO {
 				while (rs.next()) {
 					types.add(rs.getString("name"));
 				}
-
+				logger.debug("get the manufacturer");
 			} else if (vehicle_type == null && manufacturer != null) {
+				/**
+				 * this will execute when the user enter the manufacturer based on the manufacturer it will return the model
+				 * (eg:two_wheeler->tvs,bajaj)
+				 */
 				ps = con.prepareStatement(
 								"select model_name from vehicle_model where manufacturer_id in (select manufacturer_id from manufacturer where name =?)");
 				ps.setString(1, manufacturer);
@@ -89,6 +69,7 @@ public class GetColumnsDAO {
 				while (rs.next()) {
 					types.add(rs.getString("model_name"));
 				}
+				logger.debug("get the model");
 			}
 
 			Gson gson = new Gson();

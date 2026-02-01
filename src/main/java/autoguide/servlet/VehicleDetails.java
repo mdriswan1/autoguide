@@ -49,6 +49,9 @@ public class VehicleDetails extends HttpServlet {
 			System.out.println(Arrays.toString(paths));
 		}
 		System.out.println(Arrays.toString(paths));
+		/**
+		 * first if is used to load the all vehicle type if the path is empty or / then load the all vehicle details
+		 */
 
 		if ("".equals(path) || "/".equals(path) || path.equals(null)) {
 			logger.debug("load all vehicle details ");
@@ -56,7 +59,14 @@ public class VehicleDetails extends HttpServlet {
 			String json = VehicleDetailsService.vehicleDetails();
 			// return the details as a json(response)
 			print.write(json);
-		} else if ("vehicletype".equals(paths[1])) {
+		}
+
+		/**
+		 * used to load the drop down data, vehicletype->load the vehicle type (two_wheeler,four_wheeler), manufacturer->load the
+		 * manufacturer name based on vehicle type(maruti suzuki), model_name->load the model based on the manufacturer(swift VXI).
+		 */
+
+		else if ("vehicletype".equals(paths[1])) {
 			logger.debug("load all vehicle types ");
 			// if the path contain vehicletype as a value we will return the vehicle type as
 			// String as a json format
@@ -77,17 +87,14 @@ public class VehicleDetails extends HttpServlet {
 
 			System.out.println(type);
 			print.write(GetColumnService.getVehicleModel(type));
-		} else if ("getvehicle".equals(paths[1])) {
-			// if the path contain getvehicle as a value we will return the details of vehicle as
-			// String as a json format
-			String manu = paths[2];
-			String model = paths[3];
+		}
 
-			logger.debug("load all vehicle   depends on model_name and manufacturer " + model + ", " + manu);
-			System.out.println(model);
-			String json = VehicleDetailsService.vehicleDetails(manu, model);
-			print.write(json);
-		} else if ("welcome".equals(paths[1])) {
+		/**
+		 * this are used to load the vehicle details, welcome->load the 3 vehicle details, vehicletypedata->load the vehicle details based
+		 * on the vehicle type, manufacturerdata->load the vehicle details based on the manufacturer, getvehicle->load the the vehicle
+		 * details based on the manufacturer and model.
+		 */
+		else if ("welcome".equals(paths[1])) {
 			PrintWriter pw = response.getWriter();
 			// this mehtod is used for get vehicle details for guest user
 			logger.debug("load some vehicle to display for guest users");
@@ -107,6 +114,16 @@ public class VehicleDetails extends HttpServlet {
 			logger.debug("load vehicle based on manufacturer " + type);
 			String json = VehicleDetailsService.manufacturerDetails(type);
 			pw.write(json);
+		} else if ("getvehicle".equals(paths[1])) {
+			// if the path contain getvehicle as a value we will return the details of vehicle as
+			// String as a json format
+			String manu = paths[2];
+			String model = paths[3];
+
+			logger.debug("load all vehicle   depends on model_name and manufacturer " + model + ", " + manu);
+			System.out.println(model);
+			String json = VehicleDetailsService.vehicleDetails(manu, model);
+			print.write(json);
 		}
 
 	}

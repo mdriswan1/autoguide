@@ -26,14 +26,15 @@ public class LoginService implements Service {
 	public boolean execute(HttpServletRequest req, HttpServletResponse res) {
 		// int loginCount=Integer.parseInt((String) req.getSession().getAttribute("loginCount"));
 
-		HttpSession session = req.getSession(false);
+		HttpSession session = req.getSession();
 
 		// TODO Auto-generated method stub
 		logger.debug("controll transefer login execute method");
 
 		boolean flag = false;
+		boolean credentialValidationFlag = credentialValidation(req);
 		// if the attempts less than max then we will validate the email and password
-		if (validateAttempts(req) == true && credentialValidation(req)) {
+		if (validateAttempts(req) == true && credentialValidationFlag) {
 			String email = req.getParameter("email");
 			String password = req.getParameter("password");
 			flag = LoginDao.userValidate(email, password);
@@ -42,7 +43,7 @@ public class LoginService implements Service {
 				String name = LoginService.setName(email);
 				session.setAttribute("name", name);
 
-				// set the cookie
+				// set the cookie if the user click the remember me option
 				String remember = req.getParameter("remember");
 				if (remember != null) {
 					logger.debug("set the user name in cookies");
@@ -73,10 +74,26 @@ public class LoginService implements Service {
 	private static boolean credentialValidation(HttpServletRequest req) {
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
+		if (email != null) {
+			email = email.trim();
+		}
+		if (email == null || email.isEmpty()) {
+			req.setAttribute("error", "Space not allowed in the email");
+			return false;
+		}
+		if (password != null) {
+			password = password.trim();
+		}
+		if (password == null || password.isEmpty()) {
+			req.setAttribute("error", "Space not allowed in the password");
+			return false;
+		}
 		if (!email.contains("@") || !email.contains(".com")) {
+			req.setAttribute("error", "Enter Valid Email");
 			return false;
 		}
 		if (password.length() < 6) {
+			req.setAttribute("error", "Password should be more than 6 character");
 			return false;
 		}
 		return true;

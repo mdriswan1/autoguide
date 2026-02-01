@@ -6,8 +6,8 @@ import java.sql.SQLException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-/*
- *this class is used to get the connection from the data source
+/**
+ * this class is used to get the connection from the data source
  * 
  */
 

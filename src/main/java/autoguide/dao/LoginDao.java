@@ -11,29 +11,32 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import autoguide.db.CreateConnection;
 
-public class LoginDao{
-	  private static final Logger logger=LogManager.getLogger(LoginDao.class);
-	
+public class LoginDao {
+	private static final Logger logger = LogManager.getLogger(LoginDao.class);
+
 	/**
-	 * this class is used to validate the user
-	 * @param email from user come from request
-	 * @param password from user come from request
+	 * this class is used to validate the user from the data base user is already exist or not
+	 * 
+	 * @param email
+	 *            from user come from request
+	 * @param password
+	 *            from user come from request
 	 * @return true means valid user or else invalid user
 	 */
-	
-	public static boolean userValidate(String email,String password) {
-		
-		
-		try(Connection con=CreateConnection.getConnection();PreparedStatement ps=con.prepareStatement("select email,password from users where email=?")){
+
+	public static boolean userValidate(String email, String password) {
+
+		try (Connection con = CreateConnection.getConnection();
+						PreparedStatement ps = con.prepareStatement("select email,password from users where email=?")) {
 			ps.setString(1, email);
-			ResultSet rs=ps.executeQuery();
-			if(rs.next()) {
-				String pw=rs.getString("password");
-				boolean flag=BCrypt.checkpw(password, pw);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				String pw = rs.getString("password");
+				boolean flag = BCrypt.checkpw(password, pw);
 				logger.debug("validate the email and password");
 				return flag;
 			}
-		}catch (SQLException  e) {
+		} catch (SQLException e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			logger.error("error while login validate");
@@ -41,5 +44,5 @@ public class LoginDao{
 		}
 		return false;
 	}
-	
+
 }
