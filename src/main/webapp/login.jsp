@@ -184,10 +184,10 @@ button:focus {
 		
 		if((!email ||!password) ||(password.length<6)||(!email.includes("@") ||!email.includes(".com"))){
 			erroremail.innerText=(!email)?"Enter the email":"";
-			errorpassword.innerText=(!password)?"Enter password":"";
+			errorpassword.innerText=(!password)?"Enter  the password":"";
 			
 			if(password && (password.length<6)){
-				errorpassword.innerText="Enter password more than 6 character";
+				errorpassword.innerText="Enter the correct password";
 			}
 			if(email && (!email.includes("@") ||!email.includes(".com"))){
 				erroremail.innerText="Enter valid email";

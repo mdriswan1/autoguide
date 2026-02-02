@@ -221,9 +221,6 @@ form p {
 				} else if (password && password.length < 6) {
 					errorpassword.innerText = "password should be greater than 6 character";
 				}
-				if (cpassword && password && cpassword.length < 6) {
-					errorcpassword.innerText = "confirm password should be greater than 6 character";
-				}
 				return false;
 			} else if (cpassword && password && cpassword !== password) {
 				errorcpassword.innerText = "Password and confirm password must be same";
