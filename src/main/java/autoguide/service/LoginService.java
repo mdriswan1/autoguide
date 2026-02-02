@@ -83,7 +83,7 @@ public class LoginService implements Service {
 		if (password != null) {
 			password = password.trim();
 		}
-		if (password == null || password.isEmpty()) {
+		if (password == null || password.isEmpty() || password.isBlank()) {
 			req.setAttribute("error", "Space not allowed in the password");
 			return false;
 		}

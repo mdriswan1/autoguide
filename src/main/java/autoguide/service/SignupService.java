@@ -52,7 +52,8 @@ public class SignupService implements Service {
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
 		String confirmpassword = req.getParameter("confirmpassword");
-		if (fullname == null || email == null || password == null || confirmpassword == null) {
+		if ((fullname == null || fullname.isBlank()) || (email == null || email.isBlank()) || (password == null || password.isBlank())
+						|| (confirmpassword == null || confirmpassword.isBlank())) {
 			req.setAttribute("error", "Please fill the mandotary fields");
 			return false;
 		}
