@@ -36,7 +36,7 @@ public class SignupDao {
 			preparedStatement.setString(3, password);
 
 			preparedStatement.setString(4, city);
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
 
 			preparedStatement.setString(5, sdf.format(new Date()));
 			int update = preparedStatement.executeUpdate();

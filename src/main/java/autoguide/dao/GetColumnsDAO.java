@@ -60,7 +60,7 @@ public class GetColumnsDAO {
 			} else if (vehicle_type == null && manufacturer != null) {
 				/**
 				 * this will execute when the user enter the manufacturer based on the manufacturer it will return the model
-				 * (eg:two_wheeler->tvs,bajaj)
+				 * (eg:model(maruti suzuki)->swift VXI)
 				 */
 				ps = con.prepareStatement(
 								"select model_name from vehicle_model where manufacturer_id in (select manufacturer_id from manufacturer where name =?)");

@@ -62,7 +62,6 @@ public class LoginService implements Service {
 			return false;
 
 		}
-
 	}
 
 	/**
@@ -117,7 +116,6 @@ public class LoginService implements Service {
 			req.setAttribute("error", "You reached the maximum attempts dont try");
 			return false;
 		}
-
 	}
 
 	/**
