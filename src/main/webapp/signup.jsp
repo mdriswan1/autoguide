@@ -83,16 +83,16 @@ h1 {
 button:focus {
 	background-color: pink;
 }
-
+/*required symbol*/
 #star {
 	color: rgb(220, 0, 0);
 }
-
+/*error message*/
 form p {
 	color: rgb(210, 0, 0);
 	font-size: 12px;
 }
-
+/*header*/
 .navbar {
 	background-color: #333;
 	color: #fff;

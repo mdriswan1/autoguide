@@ -19,14 +19,13 @@
 <title>Home - AutoGuide</title>
 
 <style>
-/* -------- BASIC RESET -------- */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
 }
 
-/* -------- NAVBAR -------- */
+/*NAVBAR */
 .navbar {
     background-color: #222;
     color: white;
@@ -56,7 +55,7 @@ body {
 	
 }
 
-/* -------- CONTAINER -------- */
+
 .container {
     width: 90%;
     margin: 20px auto;
@@ -92,7 +91,7 @@ select, button {
     padding: 8px;
 }
 
-/* -------- BUTTON -------- */
+/* BUTTON */
 button {
     background-color: #007bff;
     color: white;
@@ -104,7 +103,7 @@ button:hover {
     background-color: #0056b3;
 }
 
-/* -------- VEHICLE CARDS -------- */
+/*  VEHICLE CARDS  */
 .vehicle-card {
     background: white;
     margin-bottom: 15px;
@@ -135,7 +134,7 @@ justify-content:center;
 align-items: center;
 }
 
-/*------------footer--------------*/
+/* footer*/
 
 #footer{
 	width:100%;

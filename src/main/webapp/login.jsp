@@ -42,7 +42,7 @@ body {
 	border: 1px solid gray;
 	color: black;
 }
-
+/* form style*/
 form {
 	display: flex;
 	flex-direction: column;
@@ -87,12 +87,13 @@ button:focus {
 	width: 12px;
 	height: 12px;
 }
+/* error message*/
 #erroremail,#errorpassword{
 	
 	color: rgb(210, 0, 0);
 	font-size: 12px;
 }
-
+/*header*/
 .navbar {
 	background-color: #333;
 	color: #fff;
