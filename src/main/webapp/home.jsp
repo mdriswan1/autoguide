@@ -16,9 +16,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Home - AutoGuide</title>
 
 <style>
+
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -26,6 +27,7 @@ body {
 }
 
 /*NAVBAR */
+
 .navbar {
     background-color: #222;
     color: white;
@@ -55,13 +57,13 @@ body {
 	
 }
 
-
+/*  CONTAINER  */
 .container {
     width: 90%;
     margin: 20px auto;
 }
 
-/* -------- FILTER BOX -------- */
+/* FILTER BOX */
 .filter-box {
     background: white;
     padding: 20px;
@@ -104,6 +106,7 @@ button:hover {
 }
 
 /*  VEHICLE CARDS  */
+
 .vehicle-card {
     background: white;
     margin-bottom: 15px;
@@ -221,7 +224,7 @@ function loadVehicleTypes() {
             const dropdown = document.getElementById("vehicleType");
             dropdown.innerHTML = '<option value=""> All Types </option>';
             data.forEach(type => {
-            	 dropdown.innerHTML += '<option value="' + type + '">' + type + '</option>';
+            	 dropdown.innerHTML += '<option value="' + type.type_id + '">' + type.type_name + '</option>';
             });
         });
 }
@@ -244,7 +247,7 @@ document.getElementById("vehicleType").addEventListener("change", function () {
     fetch('http://localhost:8080/autoguide/api/vehicledetails/manufacturer/' + type)
         .then(resp => resp.json())
         .then(data => {
-            data.forEach(m => manu.innerHTML += '<option value="'+m+'">'+m+'</option>');
+            data.forEach(m => manu.innerHTML += '<option value="'+m.manufacturer_id+'">'+m.name+'</option>');
             manu.disabled = false;
         });
    // fetch('http://localhost:8080/autoguide/api/vehicledetails/vehicletypedata/'+type)
@@ -267,7 +270,7 @@ document.getElementById("manufacturer").addEventListener("change", function () {
     fetch('http://localhost:8080/autoguide/api/vehicledetails/model_name/' + manu)
         .then(resp => resp.json())
         .then(data => {
-            data.forEach(m => model.innerHTML += '<option value="'+m+'">'+m+'</option>');
+            data.forEach(m => model.innerHTML += '<option value="'+m.model_id+'">'+m.model_name+'</option>');
             model.disabled = false;
         });
     
@@ -333,8 +336,6 @@ function populateCards(data) {
                     '</p>' +
                     '<p><b>Description:</b> ' + v.description + '</p>' +
                     '<a href="'+v.link+'">about</a>'+
-                 
-
                 '</div>' +
             '</div>';
     }

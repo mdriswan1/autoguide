@@ -27,7 +27,7 @@ public class GetColumnService {
 	 * 
 	 * @return manufacturer_name
 	 */
-	public static String getVehicleManufacturer(String vehicle_type) {
+	public static String getVehicleManufacturer(Integer vehicle_type) {
 		logger.debug("getVehicleManufacturer  method is called");
 		return GetColumnsDAO.vehicleColumn(vehicle_type, null);
 	}
@@ -38,7 +38,7 @@ public class GetColumnService {
 	 * @return model_name
 	 */
 
-	public static String getVehicleModel(String manufacturer) {
+	public static String getVehicleModel(Integer manufacturer) {
 		logger.debug("getVehicleModel method is called");
 		return GetColumnsDAO.vehicleColumn(null, manufacturer);
 	}

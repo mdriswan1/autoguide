@@ -29,7 +29,7 @@ public class VehicleDetailsService {
 	 * @param model
 	 * @return vehicle details
 	 */
-	public static String vehicleDetails(String manu, String model) {
+	public static String vehicleDetails(Integer manu, Integer model) {
 		logger.debug("vehicleDetails  method is called with two inputs in service module");
 		return VehicleDetailsDao.vehicleDetails(null, manu, model);
 	}
@@ -41,7 +41,7 @@ public class VehicleDetailsService {
 	 * @return vehicle_details
 	 * 
 	 */
-	public static String vehicleTypeDetails(String type) {
+	public static String vehicleTypeDetails(Integer type) {
 		return VehicleDetailsDao.vehicleDetails(type, null, null);
 	}
 
@@ -52,7 +52,7 @@ public class VehicleDetailsService {
 	 * @return vehicle_details
 	 */
 
-	public static String manufacturerDetails(String type) {
+	public static String manufacturerDetails(Integer type) {
 		return VehicleDetailsDao.vehicleDetails(null, type, null);
 	}
 

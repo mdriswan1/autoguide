@@ -52,7 +52,6 @@ public class LoginService implements Service {
 					cookie.setMaxAge(7 * 60 * 60 * 24);
 					res.addCookie(cookie);
 				}
-
 				return flag;
 			} else {
 				req.setAttribute("error", "Invalid Credentials!");

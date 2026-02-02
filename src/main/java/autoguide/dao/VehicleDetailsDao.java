@@ -33,7 +33,7 @@ public class VehicleDetailsDao {
 	 * @return vehicle details
 	 */
 
-	public static String vehicleDetails(String type, String manufacturer, String model_name) {
+	public static String vehicleDetails(Integer type, Integer manufacturer, Integer model_name) {
 
 		List<AllVehicleDetails> all = new ArrayList<AllVehicleDetails>();
 		ResultSet rs = null;
@@ -52,24 +52,24 @@ public class VehicleDetailsDao {
 				 * this load the all vehicle details based on the vehicle type
 				 */
 				ps = con.prepareStatement(
-								"select * from vehicle_model inner join vehicle_type on vehicle_model.type_id=vehicle_type.type_id and vehicle_model.type_id in (select type_id from vehicle_type where type_name=?) left join vehicle_news on vehicle_news.model_id=vehicle_model.model_id;");
-				ps.setString(1, type);
+								"select * from vehicle_model inner join vehicle_type on vehicle_model.type_id=vehicle_type.type_id and vehicle_model.type_id =? left join vehicle_news on vehicle_news.model_id=vehicle_model.model_id;");
+				ps.setInt(1, type);
 			} else if (type == null && manufacturer != null && model_name == null) {
 				/**
 				 * this load the all vehicle details based on the manufacturer
 				 */
 				ps = con.prepareStatement(
-								"select * from vehicle_model inner join vehicle_type on vehicle_model.type_id=vehicle_type.type_id and vehicle_model.manufacturer_id in (select manufacturer_id from manufacturer where name=?) left join vehicle_news on vehicle_news.model_id=vehicle_model.model_id;");
-				ps.setString(1, manufacturer);
+								"select * from vehicle_model inner join vehicle_type on vehicle_model.type_id=vehicle_type.type_id and vehicle_model.manufacturer_id=? left join vehicle_news on vehicle_news.model_id=vehicle_model.model_id;");
+				ps.setInt(1, manufacturer);
 
 			} else if (type == null && manufacturer != null && model_name != null) {
 				/**
 				 * this load the all vehicle details based on manufacturer and model
 				 */
 				ps = con.prepareStatement(
-								"select * from vehicle_model inner join manufacturer on manufacturer.manufacturer_id=(select m1.manufacturer_id from manufacturer m1 where m1.name=?) and vehicle_model.model_name=? inner join vehicle_type on vehicle_model.type_id=vehicle_type.type_id left join vehicle_news on vehicle_news.model_id=vehicle_model.model_id  ;");
-				ps.setString(1, manufacturer);
-				ps.setString(2, model_name);
+								"select * from vehicle_model inner join manufacturer on manufacturer.manufacturer_id=? and vehicle_model.model_id=? inner join vehicle_type on vehicle_model.type_id=vehicle_type.type_id left join vehicle_news on vehicle_news.model_id=vehicle_model.model_id  ;");
+				ps.setInt(1, manufacturer);
+				ps.setInt(2, model_name);
 			}
 			if (ps != null) {
 				rs = ps.executeQuery();

@@ -1,4 +1,5 @@
 
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	
@@ -180,6 +181,7 @@ form p {
 		//validate the email and password
 
 		function emailValidation() {
+
 			let fullname = document.getElementById("fullname").value;
 			let email = document.getElementById("email").value;
 			let password = document.getElementById("password").value;
@@ -193,6 +195,7 @@ form p {
 			erroremail.innerText = "";
 			errorpassword.innerText = "";
 			errorcpassword.innerText = "";
+			
 			// mandatory fields
 			if ((!fullname || !email || !password || !cpassword)
 					|| (email && (!email.includes('@') || !email
