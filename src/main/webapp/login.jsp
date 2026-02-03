@@ -174,30 +174,59 @@ button:focus {
 	</div>
 	<script>
 	function validation(){
-		let email=document.getElementById("email").value;
-		let password=document.getElementById("password").value;
 		
-		let erroremail=document.getElementById("erroremail");
-		let errorpassword=document.getElementById("errorpassword");
+	const emailRegex= /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+	const passwordRegex= /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$/;
+	
+	let erroremail = document.getElementById("erroremail");
+	let errorpassword = document.getElementById("errorpassword");
+	
+	let email = document.getElementById("email").value;
+	let password = document.getElementById("password").value;
+	
+	erroremail.innerText = "";
+	errorpassword.innerText = "";
+	
+	let flag=true;
 		
-		erroremail.innerText="";
-		errorpassword.innerText="";
-		
-		if((!email ||!password) ||(password.length<6)||(!email.includes("@") ||!email.includes(".com"))){
-			erroremail.innerText=(!email)?"Enter the email":"";
-			errorpassword.innerText=(!password)?"Enter  the password":"";
-			
-			if(password && (password.length<6)){
-				errorpassword.innerText="Enter the correct password";
-			}
-			if(email && (!email.includes("@") ||!email.includes(".com"))){
-				erroremail.innerText="Enter valid email";
-			}
-			return false;
-		}else{
-			return true;
+		if(!email){
+		erroremail.innerText ="Enter the Email";
+		flag=false;
 		}
-	}
+		if(!password){
+		errorpassword.innerText ="Enter the Password";
+		flag=false;
+		}
+		
+		// email validation 
+		if (email && !emailRegex.test(email)) {
+			erroremail.innerText = "Please enter a valid email";
+			flag=false;
+		}
+
+		//password validation
+		if (password && !passwordRegex.test(password)) {
+				let passError = "Enter valid Password";
+				if (password.length < 8) {
+					passError = "please enter atleast 8 characters. ";
+				} else if (!/[A-Z]/.test(password)) {
+					passError = "please enter atleast one uppercase letter. ";
+
+				} else if (!/[a-z]/.test(password)) {
+					passError = "please enter atleast one lowercase letter. ";
+
+				} else if (!/[0-9]/.test(password)) {
+					passError = "please enter atleast one number. ";
+
+				} else if (!/[!@#$%^&*]/.test(password)) {
+					passError = "please enter atleast one special character. ";
+				}
+				flag = false;
+				errorpassword.innerText = passError;
+			}
+		return flag;
+	
+}
 	</script>
 </body>
 </html>

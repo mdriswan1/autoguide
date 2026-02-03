@@ -2,7 +2,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
+
 <html>
 <head>
 <title>Register</title>
@@ -38,7 +38,7 @@ body {
 	justify-content: space-around;
 	align-items: center;
 	height: 85%;
-	width: 35%;
+	width: 40%;
 	border-radius: 20px;
 	background: rgba(150, 150, 150, 0.9);
 	border: 1px solid gray;
@@ -72,7 +72,7 @@ button {
 
 a {
 	text-decoration: none;
-	color: rgb(180,0,0);
+	color: rgb(180, 0, 0);
 }
 
 h1 {
@@ -107,7 +107,6 @@ form p {
 	font-size: 24px;
 	font-weight: bold;
 	color: white;
-	
 }
 
 .navbar form button {
@@ -127,12 +126,12 @@ form p {
 </style>
 </head>
 <body>
-<div class="navbar">
-	<h1 id="appname"><%=application.getInitParameter("application_name")%></h1>
-	<form action="controller" method="post">
-		<button type="submit" name="input" value="forward">Back</button>
-	</form>
-</div>
+	<div class="navbar">
+		<h1 id="appname"><%=application.getInitParameter("application_name")%></h1>
+		<form action="controller" method="post">
+			<button type="submit" name="input" value="forward">Back</button>
+		</form>
+	</div>
 	<div id='full'>
 		<div id='middle'>
 			<h1>User Registration</h1>
@@ -171,7 +170,7 @@ form p {
 			</div>
 
 			<hr>
-			<div style="color: rgb(210,0,0);">
+			<div style="color: rgb(210, 0, 0);">
 				<%=request.getAttribute("error") != null ? request.getAttribute("error") : ""%>
 			</div>
 		</div>
@@ -195,42 +194,73 @@ form p {
 			erroremail.innerText = "";
 			errorpassword.innerText = "";
 			errorcpassword.innerText = "";
-			
-			// mandatory fields
-			if ((!fullname || !email || !password || !cpassword)
-					|| (email && (!email.includes('@') || !email
-							.includes('.com')))
-					|| (password && password.includes(" "))
-					|| (password && password.length < 6)
-					|| (cpassword && password && cpassword.length < 6)) {
-				
-				fullname=fullname.trim();
-				errorname.innerText = (!fullname) ? "Enter the User name" : "";
-				erroremail.innerText = (!email) ? "Enter the email" : "";
-				errorpassword.innerText = (!password) ? "Enter the password"
-						: "";
-				errorcpassword.innerText = (!cpassword) ? "Enter the confirm password"
-						: "";
 
-				// email validation 
-				if (email && (!email.includes('@') || !email.includes('.com'))) {
-					erroremail.innerText = "Please enter a valid email";
-				}
+			const nameRegex = /^[A-Za-z]+(?:\s+[A-Za-z]+)*$/;
+			const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+			const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$/;
 
-				//password not contain space
-				if (password && password.includes(" ")) {
-					errorpassword.innerText = "password not conatain any space";
-
-				} else if (password && password.length < 6) {
-					errorpassword.innerText = "password should be greater than 6 character";
-				}
-				return false;
-			} else if (cpassword && password && cpassword !== password) {
-				errorcpassword.innerText = "Password and confirm password must be same";
-				return false;
-			} else {
-				return true;
+			let flag = true;
+			if (!fullname) {
+				errorname.innerText = "Enter the Name";
+				flag = false;
 			}
+			if (!email) {
+				erroremail.innerText = "Enter the Email";
+				flag = false;
+			}
+			if (!password) {
+				errorpassword.innerText = "Enter the Password";
+				flag = false;
+			}
+			if (!cpassword) {
+				errorcpassword.innerText = "Enter the Confirm Password";
+				flag = false;
+			}
+
+			//fullname validation
+			if (fullname && !nameRegex.test(fullname)) {
+				errorname.innerText = "please enter a valid name";
+				flag = false;
+
+			}
+
+			// email validation 
+			if (email && !emailRegex.test(email)) {
+				erroremail.innerText = "Please enter a valid email";
+				flag = false;
+
+			}
+
+			//password validation
+			if (password && !passwordRegex.test(password)) {
+				let passError = "Enter valid Password";
+				if (password.length < 8) {
+					passError = "please enter atleast 8 characters. ";
+
+				} else if (!/[A-Z]/.test(password)) {
+					passError = "please enter atleast one uppercase letter. ";
+
+				} else if (!/[a-z]/.test(password)) {
+					passError = "please enter atleast one lowercase letter. ";
+
+				} else if (!/[0-9]/.test(password)) {
+					passError = "please enter atleast one number. ";
+
+				} else if (!/[!@#$%^&*]/.test(password)) {
+					passError = "please enter atleast one special character. ";
+
+				}
+				flag = false;
+				errorpassword.innerText = passError;
+			}
+
+			//confirm password checck
+			if (cpassword && password && cpassword !== password) {
+				errorcpassword.innerText = "Password and confirm password must be same";
+				flag = false;
+			}
+			return flag;
+
 		}
 	</script>
 </body>
