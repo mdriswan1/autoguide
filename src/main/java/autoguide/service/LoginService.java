@@ -83,6 +83,9 @@ public class LoginService implements Service {
 				req.setAttribute("error", "Enter the valid email");
 				return false;
 			}
+		} else {
+			req.setAttribute("error", "Enter the valid email");
+			return false;
 		}
 		if ("".equals(password)) {
 			req.setAttribute("error", "Enter the Password");
@@ -101,6 +104,9 @@ public class LoginService implements Service {
 				req.setAttribute("error", "Password must contain one uppercase letter and special character");
 				return false;
 			}
+		} else {
+			req.setAttribute("error", "Enter the valid Password");
+			return false;
 		}
 		return true;
 	}

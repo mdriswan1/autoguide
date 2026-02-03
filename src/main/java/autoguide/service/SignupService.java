@@ -77,6 +77,9 @@ public class SignupService implements Service {
 				req.setAttribute("error", "Enter the valid email");
 				return false;
 			}
+		} else {
+			req.setAttribute("error", "Enter the valid email");
+			return false;
 		}
 		if ("".equals(password)) {
 			req.setAttribute("error", "Enter the Password");
@@ -95,6 +98,9 @@ public class SignupService implements Service {
 				req.setAttribute("error", "Password must contain one uppercase letter and special character");
 				return false;
 			}
+		} else {
+			req.setAttribute("error", "Enter the valid Password");
+			return false;
 		}
 		if ("".equals(confirmpassword)) {
 			req.setAttribute("error", "Enter the Confirm Password");
@@ -105,6 +111,9 @@ public class SignupService implements Service {
 				req.setAttribute("error", "Password and Confirm Password must be same");
 				return false;
 			}
+		} else {
+			req.setAttribute("error", "Enter the valid Confirm Password");
+			return false;
 		}
 		return true;
 	}
