@@ -20,7 +20,7 @@
   
   <context-param>
   	<param-name>email</param-name>
-  	<param-value>AutoGuide@ag.com</param-value>  	
+  	<param-value>autoguide@ag.com</param-value>  	
   </context-param>
    <context-param> 	
   	<param-name>phone</param-name>

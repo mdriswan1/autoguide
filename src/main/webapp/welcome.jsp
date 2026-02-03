@@ -141,7 +141,6 @@ body {
 		<form action="controller" method="post">
 			<button type="submit" name="input" value="frontsignup">Signup</button>
 		</form>
-		<!--<a href="controller?input=frontsignup" >Sign Up Now</a> -->
 	</div>
 	<jsp:include page="footer.jsp" />
 	<!-- JavaScript to fetch API -->
@@ -162,7 +161,7 @@ body {
 
                         // image
                         let img = document.createElement('img');
-                        img.src = "data:image/jpeg;base64," + v.vehicleImage;
+                        img.src = v.vehicleImage;
                         img.alt = v.vehicleName;
 
                         // text details

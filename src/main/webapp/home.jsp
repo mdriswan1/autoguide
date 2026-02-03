@@ -316,14 +316,11 @@ function populateCards(data) {
 
         var v = data[i];
 
-        // If image exists use base64
-        var img="data:image/jpeg;base64," + v.vehicle_image;
-
         // Build HTML using string concatenation
         container.innerHTML +=
             '<div class="vehicle-card">' +
             '<div class="vehicle-image">'+
-                '<img src="' + img + '">' +'</div>'+
+                '<img src="' + v.vehicle_image + '">' +'</div>'+
                 '<div class="vehicle-detail">' +
                     '<h4>' + v.vehicle_name + '</h4>' +
                     '<p><b>Type:</b> ' + v.vehicle_type + '</p>' +

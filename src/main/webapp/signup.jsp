@@ -95,9 +95,7 @@ form p {
 	color: rgb(210, 0, 0);
 	font-size: 12px;
 }
-.inputerror{
-   border:2px solid rgb(230, 0, 0);
-}
+
 /*header*/
 .navbar {
 	background-color: #333;

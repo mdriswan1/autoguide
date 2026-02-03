@@ -15,21 +15,20 @@
 }
 
 body {
-	height: 100vh;
-	width: 100vw;
+	height:100vh;
+	background: white;
+	background-image: url("images/background.jpg");
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
 }
 
 #full {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 100vh;
-	width: 100vw;
-	background: white;
-	background-image: url("images/background.jpg");
-	background-size: cover;
-	background-position: center center;
-	background-repeat: no-repeat;
+	height:100vh;
+	
 }
 
 #middle {
@@ -49,7 +48,6 @@ form {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: space-between;
 	gap: 20px
 }
 
@@ -89,10 +87,7 @@ button:focus {
 	width: 12px;
 	height: 12px;
 }
-/* error message*/
-.inputerror{
-   border:2px solid rgb(230, 0, 0);
-}
+
 #erroremail,#errorpassword{
 	
 	color: rgb(210, 0, 0);
@@ -128,6 +123,11 @@ button:focus {
 .navbar form button:hover {
 	background-color: pink;
 	color: #333;
+}
+@media (max-width:1000px) {
+	#middle{
+		height:50px;
+	}
 }
 </style>
 
