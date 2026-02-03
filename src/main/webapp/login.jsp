@@ -90,6 +90,9 @@ button:focus {
 	height: 12px;
 }
 /* error message*/
+.inputerror{
+   border:2px solid rgb(230, 0, 0);
+}
 #erroremail,#errorpassword{
 	
 	color: rgb(210, 0, 0);
@@ -186,6 +189,9 @@ button:focus {
 	let email = document.getElementById("email").value;
 	let password = document.getElementById("password").value;
 	
+	document.getElementById("email").classList.remove("inputerror");
+	document.getElementById("password").classList.remove("inputerror");
+	
 	erroremail.innerText = "";
 	errorpassword.innerText = "";
 	
@@ -202,6 +208,7 @@ button:focus {
 		
 		// email validation 
 		if (email && !emailRegex.test(email)) {
+			document.getElementById("email").classList.add("inputerror");
 			erroremail.innerText = "Please enter a valid email";
 			flag=false;
 		}
@@ -209,6 +216,7 @@ button:focus {
 		//password validation
 		if (password && !passwordRegex.test(password)) {
 			let passError = "Please enter a valid password";
+			document.getElementById("password").classList.add("inputerror");
 			if (password.length < 8) {
 				passError = "Password must be at least 8 characters long";
 
