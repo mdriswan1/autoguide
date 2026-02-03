@@ -1,5 +1,3 @@
-
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -76,22 +74,29 @@ a {
 }
 
 h1 {
+
 	font-size: 26px;
 	font-weight: bold;
 	color: black;
+	
 }
 
 button:focus {
-	background-color: pink;
+	background-color: pink ;
 }
+
 /*required symbol*/
 #star {
 	color: rgb(220, 0, 0);
 }
+
 /*error message*/
 form p {
 	color: rgb(210, 0, 0);
 	font-size: 12px;
+}
+.inputerror{
+   border:2px solid rgb(230, 0, 0);
 }
 /*header*/
 .navbar {
@@ -138,7 +143,7 @@ form p {
 
 			<form action="controller" method="post"
 				onsubmit="return validation()">
-				<input type="hidden" name="input" value="signup">
+				<input type="hidden" name="input" value="signup" >
 				<div>
 					Name <span id="star">*</span>: <input type="text" name="fullname"
 						id="fullname">
@@ -191,6 +196,11 @@ form p {
 			let errorpassword = document.getElementById("errorpassword");
 			let errorcpassword = document.getElementById("errorcpassword");
 			
+			document.getElementById("fullname").classList.remove("inputerror");
+			document.getElementById("email").classList.remove("inputerror");
+			document.getElementById("password").classList.remove("inputerror");
+			document.getElementById("confirmpassword").classList.remove("inputerror");
+			
 			errorname.innerText = "";
 			erroremail.innerText = "";
 			errorpassword.innerText = "";
@@ -203,31 +213,36 @@ form p {
 			let flag = true;
 			if (!fullname) {
 				errorname.innerText = "Please enter your name";
+				document.getElementById("fullname").classList.add("inputerror");
 				flag = false;
 			}
 			if (!email) {
 				erroremail.innerText = "Please enter your email address";
+				document.getElementById("email").classList.add("inputerror");
 				flag = false;
 			}
 			if (!password) {
 				errorpassword.innerText = "Please enter a password";
+				document.getElementById("password").classList.add("inputerror");
 				flag = false;
 			}
 			if (!cpassword) {
 				errorcpassword.innerText = "Please confirm your password";
+				document.getElementById("confirmpassword").classList.add("inputerror");
 				flag = false;
 			}
 
 			//fullname validation
 			if (fullname && !nameRegex.test(fullname)) {
 				errorname.innerText = "Please enter a valid name";
-				
+				document.getElementById("fullname").classList.add("inputerror");
 				flag = false;
 			}
 
 			// email validation 
 			if (email && !emailRegex.test(email)) {
 				erroremail.innerText = "Please enter a valid email";
+				document.getElementById("email").classList.add("inputerror");
 				flag = false;
 
 			}
@@ -235,12 +250,11 @@ form p {
 			//password validation
 			if (password && !passwordRegex.test(password)) {
 				let passError = "Please enter a valid password";
+				document.getElementById("password").classList.add("inputerror");
 				if (password.length < 8) {
 					passError = "Password must be at least 8 characters long";
-
 				} else if (!/[A-Z]/.test(password)) {
 					passError = "Password must contain at least one uppercase letter";
-
 				} else if (!/[0-9]/.test(password)) {
 					passError = "Password must contain at least one number";
 
@@ -258,6 +272,7 @@ form p {
 			//confirm password checck
 			if (cpassword && password && cpassword !== password) {
 				errorcpassword.innerText = "Password and confirm password must match";
+				document.getElementById("confirmpassword").classList.remove("inputerror");
 				flag = false;
 			}
 			return flag;

@@ -74,40 +74,56 @@ public class LoginService implements Service {
 		String password = req.getParameter("password");
 		String emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
 		String passwordRegex = "^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$";
+		// check the email is empty or not
 		if ("".equals(email)) {
 			req.setAttribute("error", "Enter the Email");
 			return false;
 		}
+		// check the email is in correct format and not be blank or empty
 		if (email != null) {
 			if (email.isEmpty() || email.isBlank() || !email.matches(emailRegex)) {
 				req.setAttribute("error", "Enter the valid email");
 				return false;
 			}
 		} else {
+			// null means denote the error
+			logger.error("parameter of email is null");
 			req.setAttribute("error", "Enter the valid email");
 			return false;
 		}
+		/**
+		 * validate the password if the password is empty or not
+		 */
 		if ("".equals(password)) {
 			req.setAttribute("error", "Enter the Password");
 			return false;
 		}
+		/**
+		 * If not empty then validate the password
+		 */
 		if (password != null) {
+			// check the password length
 			if (password.length() < 8) {
 				req.setAttribute("error", "Password must be more than 8 character");
 				return false;
 			}
+			// check the password contain space or not
 			if (password.matches("(?=.*[ ])")) {
 				req.setAttribute("error", "Password not conatin space");
 				return false;
 			}
+			// finally check the password match with the pattern
 			if (!password.matches(passwordRegex)) {
 				req.setAttribute("error", "Password must contain one uppercase letter and special character");
 				return false;
 			}
 		} else {
+
+			logger.error("parameter of password is null");
 			req.setAttribute("error", "Enter the valid Password");
 			return false;
 		}
+		// if all the validation is correct then return true
 		return true;
 	}
 
