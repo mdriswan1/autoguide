@@ -23,7 +23,10 @@ public class SignupService implements Service {
 
 		// TODO Auto-generated method stub
 		logger.debug("controll transefer signup execute method");
-		String fullname = req.getParameter("fullname").trim();
+		String fullname = req.getParameter("fullname");
+		if (fullname != null) {
+			fullname = fullname.trim();
+		}
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
 		String city = req.getParameter("city");
@@ -52,28 +55,56 @@ public class SignupService implements Service {
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
 		String confirmpassword = req.getParameter("confirmpassword");
-		if ((fullname == null || fullname.isBlank()) || (email == null || email.isBlank()) || (password == null || password.isBlank())
-						|| (confirmpassword == null || confirmpassword.isBlank())) {
-
-			req.setAttribute("error", "Please fill the mandotary fields");
+		String fullnameRegex = "^[A-Za-z]+(?:\\s+[A-Za-z]+)*$";
+		String emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+		String passwordRegex = "^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$";
+		if ("".equals(fullname)) {
+			req.setAttribute("error", "Enter the Name");
 			return false;
 		}
-		fullname = fullname.trim();
-		if (fullname == null || fullname.isEmpty()) {
-			req.setAttribute("error", "Enter valid user name");
+		if (fullname != null) {
+			if (fullname.isEmpty() || fullname.isBlank() || !fullname.matches(fullnameRegex)) {
+				req.setAttribute("error", "Enter the valid Username");
+				return false;
+			}
+		}
+		if ("".equals(email)) {
+			req.setAttribute("error", "Enter the Email");
 			return false;
 		}
-		if (email.contains(" ") || !email.contains("@") || !email.contains(".com")) {
-			req.setAttribute("error", "Enter valid email");
+		if (email != null) {
+			if (email.isEmpty() || email.isBlank() || !email.matches(emailRegex)) {
+				req.setAttribute("error", "Enter the valid email");
+				return false;
+			}
+		}
+		if ("".equals(password)) {
+			req.setAttribute("error", "Enter the Password");
 			return false;
 		}
-		if (password.length() < 6) {
-			req.setAttribute("error", "password should be more than 6 character");
+		if (password != null) {
+			if (password.length() < 8) {
+				req.setAttribute("error", "Password must be more than 8 character");
+				return false;
+			}
+			if (password.matches("(?=.*[ ])")) {
+				req.setAttribute("error", "Password not conatin space");
+				return false;
+			}
+			if (!password.matches(passwordRegex)) {
+				req.setAttribute("error", "Password must contain one uppercase letter and special character");
+				return false;
+			}
+		}
+		if ("".equals(confirmpassword)) {
+			req.setAttribute("error", "Enter the Confirm Password");
 			return false;
 		}
-		if (!password.equals(confirmpassword)) {
-			req.setAttribute("error", "password and confirm password should be same");
-			return false;
+		if (confirmpassword != null) {
+			if (!confirmpassword.equals(password)) {
+				req.setAttribute("error", "Password and Confirm Password must be same");
+				return false;
+			}
 		}
 		return true;
 	}

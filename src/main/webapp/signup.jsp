@@ -219,7 +219,7 @@ form p {
 
 			//fullname validation
 			if (fullname && !nameRegex.test(fullname)) {
-				errorname.innerText = "Please, Enter a valid name";
+				errorname.innerText = "Please, enter a valid name";
 				flag = false;
 
 			}

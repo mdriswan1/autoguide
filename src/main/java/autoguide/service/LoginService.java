@@ -72,27 +72,35 @@ public class LoginService implements Service {
 	private static boolean credentialValidation(HttpServletRequest req) {
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
-		if (email != null) {
-			email = email.trim();
+		String emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+		String passwordRegex = "^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$";
+		if ("".equals(email)) {
+			req.setAttribute("error", "Enter the Email");
+			return false;
 		}
-		if (email == null || email.isEmpty()) {
-			req.setAttribute("error", "Space not allowed in the email");
+		if (email != null) {
+			if (email.isEmpty() || email.isBlank() || !email.matches(emailRegex)) {
+				req.setAttribute("error", "Enter the valid email");
+				return false;
+			}
+		}
+		if ("".equals(password)) {
+			req.setAttribute("error", "Enter the Password");
 			return false;
 		}
 		if (password != null) {
-			password = password.trim();
-		}
-		if (password == null || password.isEmpty() || password.isBlank()) {
-			req.setAttribute("error", "Space not allowed in the password");
-			return false;
-		}
-		if (!email.contains("@") || !email.contains(".com")) {
-			req.setAttribute("error", "Enter Valid Email");
-			return false;
-		}
-		if (password.length() < 6) {
-			req.setAttribute("error", "Password should be more than 6 character");
-			return false;
+			if (password.length() < 8) {
+				req.setAttribute("error", "Password must be more than 8 character");
+				return false;
+			}
+			if (password.matches("(?=.*[ ])")) {
+				req.setAttribute("error", "Password not conatin space");
+				return false;
+			}
+			if (!password.matches(passwordRegex)) {
+				req.setAttribute("error", "Password must contain one uppercase letter and special character");
+				return false;
+			}
 		}
 		return true;
 	}
