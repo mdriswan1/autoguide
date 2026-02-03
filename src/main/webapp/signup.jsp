@@ -137,7 +137,7 @@ form p {
 			<h1>User Registration</h1>
 
 			<form action="controller" method="post"
-				onsubmit="return emailValidation()">
+				onsubmit="return validation()">
 				<input type="hidden" name="input" value="signup">
 				<div>
 					Name <span id="star">*</span>: <input type="text" name="fullname"
@@ -179,7 +179,7 @@ form p {
 	<script>
 		//validate the email and password
 
-		function emailValidation() {
+		function validation() {
 
 			let fullname = document.getElementById("fullname").value;
 			let email = document.getElementById("email").value;
@@ -235,19 +235,19 @@ form p {
 			if (password && !passwordRegex.test(password)) {
 				let passError = "Enter valid Password";
 				if (password.length < 8) {
-					passError = "please enter atleast 8 characters. ";
+					passError = "Password must be at least 8 characters long.";
 
 				} else if (!/[A-Z]/.test(password)) {
-					passError = "please enter atleast one uppercase letter. ";
+					passError = "Password must contain at least one uppercase letter.";
 
 				} else if (!/[a-z]/.test(password)) {
-					passError = "please enter atleast one lowercase letter. ";
+					passError = "Password must contain at least one lowercase letter.";
 
 				} else if (!/[0-9]/.test(password)) {
-					passError = "please enter atleast one number. ";
+					passError = "Password must contain at least one number.";
 
 				} else if (!/[!@#$%^&*]/.test(password)) {
-					passError = "please enter atleast one special character. ";
+					passError = "Password must contain at least one special character.";
 
 				}
 				flag = false;
@@ -256,7 +256,7 @@ form p {
 
 			//confirm password checck
 			if (cpassword && password && cpassword !== password) {
-				errorcpassword.innerText = "Password and confirm password must be same";
+				errorcpassword.innerText = "Password and confirm password must match.";
 				flag = false;
 			}
 			return flag;

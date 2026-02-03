@@ -206,21 +206,23 @@ button:focus {
 
 		//password validation
 		if (password && !passwordRegex.test(password)) {
-				let passError = "Enter valid Password";
-				if (password.length < 8) {
-					passError = "please enter atleast 8 characters. ";
-				} else if (!/[A-Z]/.test(password)) {
-					passError = "please enter atleast one uppercase letter. ";
+			let passError = "Enter valid Password";
+			if (password.length < 8) {
+				passError = "Password must be at least 8 characters long.";
 
-				} else if (!/[a-z]/.test(password)) {
-					passError = "please enter atleast one lowercase letter. ";
+			} else if (!/[A-Z]/.test(password)) {
+				passError = "Password must contain at least one uppercase letter.";
 
-				} else if (!/[0-9]/.test(password)) {
-					passError = "please enter atleast one number. ";
+			} else if (!/[a-z]/.test(password)) {
+				passError = "Password must contain at least one lowercase letter.";
 
-				} else if (!/[!@#$%^&*]/.test(password)) {
-					passError = "please enter atleast one special character. ";
-				}
+			} else if (!/[0-9]/.test(password)) {
+				passError = "Password must contain at least one number.";
+
+			} else if (!/[!@#$%^&*]/.test(password)) {
+				passError = "Password must contain at least one special character.";
+
+			}
 				flag = false;
 				errorpassword.innerText = passError;
 			}
