@@ -59,12 +59,12 @@ public class SignupService implements Service {
 		String emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
 		String passwordRegex = "^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$";
 		if ("".equals(fullname)) {
-			req.setAttribute("error", "Enter the Name");
+			req.setAttribute("error", "Enter the name");
 			return false;
 		}
 		if (fullname != null) {
 			if (fullname.isEmpty() || fullname.isBlank() || !fullname.matches(fullnameRegex)) {
-				req.setAttribute("error", "Enter the valid Username");
+				req.setAttribute("error", "Enter the valid name");
 				return false;
 			}
 		}
