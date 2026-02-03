@@ -77,6 +77,7 @@ h1 {
 	font-size: 26px;
 	font-weight: bold;
 	color: black;
+	
 }
 
 button:focus {
