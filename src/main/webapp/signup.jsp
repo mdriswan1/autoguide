@@ -190,65 +190,66 @@ form p {
 			let erroremail = document.getElementById("erroremail");
 			let errorpassword = document.getElementById("errorpassword");
 			let errorcpassword = document.getElementById("errorcpassword");
+			
 			errorname.innerText = "";
 			erroremail.innerText = "";
 			errorpassword.innerText = "";
 			errorcpassword.innerText = "";
 
-			const nameRegex = /^[A-Za-z]+(?:\s+[A-Za-z]+)*$/;
+			const nameRegex = /^[A-Za-z]+(?:[\s'-][A-Za-z]+)*$/;
 			const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 			const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$/;
 
 			let flag = true;
 			if (!fullname) {
-				errorname.innerText = "Enter the Name";
+				errorname.innerText = "Please enter your name";
 				flag = false;
 			}
 			if (!email) {
-				erroremail.innerText = "Enter the Email";
+				erroremail.innerText = "Please enter your email address";
 				flag = false;
 			}
 			if (!password) {
-				errorpassword.innerText = "Enter the Password";
+				errorpassword.innerText = "Please enter a password";
 				flag = false;
 			}
 			if (!cpassword) {
-				errorcpassword.innerText = "Enter the Confirm Password";
+				errorcpassword.innerText = "Please confirm your password";
 				flag = false;
 			}
 
 			//fullname validation
 			if (fullname && !nameRegex.test(fullname)) {
-				errorname.innerText = "Please, enter a valid name";
+				errorname.innerText = "Please enter a valid name";
+				
 				flag = false;
-
 			}
 
 			// email validation 
 			if (email && !emailRegex.test(email)) {
-				erroremail.innerText = "Please, Enter a valid email";
+				erroremail.innerText = "Please enter a valid email";
 				flag = false;
 
 			}
 
 			//password validation
 			if (password && !passwordRegex.test(password)) {
-				let passError = "Enter valid Password";
+				let passError = "Please enter a valid password";
 				if (password.length < 8) {
-					passError = "Password must be at least 8 characters long.";
+					passError = "Password must be at least 8 characters long";
 
 				} else if (!/[A-Z]/.test(password)) {
-					passError = "Password must contain at least one uppercase letter.";
-
-				} else if (!/[a-z]/.test(password)) {
-					passError = "Password must contain at least one lowercase letter.";
+					passError = "Password must contain at least one uppercase letter";
 
 				} else if (!/[0-9]/.test(password)) {
-					passError = "Password must contain at least one number.";
+					passError = "Password must contain at least one number";
 
 				} else if (!/[!@#$%^&*]/.test(password)) {
-					passError = "Password must contain at least one special character.";
+					passError = "Password must contain at least one special character";
 
+				} else if (/[ ]/.test(password)) {
+					passError= "Password must not contain spaces";
+					
 				}
 				flag = false;
 				errorpassword.innerText = passError;
@@ -256,7 +257,7 @@ form p {
 
 			//confirm password checck
 			if (cpassword && password && cpassword !== password) {
-				errorcpassword.innerText = "Password and confirm password must match.";
+				errorcpassword.innerText = "Password and confirm password must match";
 				flag = false;
 			}
 			return flag;

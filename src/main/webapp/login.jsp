@@ -1,3 +1,5 @@
+
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -190,38 +192,38 @@ button:focus {
 	let flag=true;
 		
 		if(!email){
-		erroremail.innerText ="Enter the Email";
+		erroremail.innerText ="Please enter your email address";
 		flag=false;
 		}
 		if(!password){
-		errorpassword.innerText ="Enter the Password";
+		errorpassword.innerText ="Please enter a password";
 		flag=false;
 		}
 		
 		// email validation 
 		if (email && !emailRegex.test(email)) {
-			erroremail.innerText = "Please, Enter a valid email";
+			erroremail.innerText = "Please enter a valid email";
 			flag=false;
 		}
 
 		//password validation
 		if (password && !passwordRegex.test(password)) {
-			let passError = "Enter valid Password";
+			let passError = "Please enter a valid password";
 			if (password.length < 8) {
-				passError = "Password must be at least 8 characters long.";
+				passError = "Password must be at least 8 characters long";
 
 			} else if (!/[A-Z]/.test(password)) {
-				passError = "Password must contain at least one uppercase letter.";
-
-			} else if (!/[a-z]/.test(password)) {
-				passError = "Password must contain at least one lowercase letter.";
+				passError = "Password must contain at least one uppercase letter";
 
 			} else if (!/[0-9]/.test(password)) {
-				passError = "Password must contain at least one number.";
+				passError = "Password must contain at least one number";
 
 			} else if (!/[!@#$%^&*]/.test(password)) {
-				passError = "Password must contain at least one special character.";
-
+				passError = "Password must contain at least one special character";
+				
+			} else if (/[ ]/.test(password)) {
+				passError= "Password must not contain spaces";
+				
 			}
 				flag = false;
 				errorpassword.innerText = passError;
