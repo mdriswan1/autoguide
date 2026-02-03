@@ -219,14 +219,14 @@ form p {
 
 			//fullname validation
 			if (fullname && !nameRegex.test(fullname)) {
-				errorname.innerText = "please enter a valid name";
+				errorname.innerText = "Please, Enter a valid name";
 				flag = false;
 
 			}
 
 			// email validation 
 			if (email && !emailRegex.test(email)) {
-				erroremail.innerText = "Please enter a valid email";
+				erroremail.innerText = "Please, Enter a valid email";
 				flag = false;
 
 			}

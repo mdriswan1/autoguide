@@ -200,7 +200,7 @@ button:focus {
 		
 		// email validation 
 		if (email && !emailRegex.test(email)) {
-			erroremail.innerText = "Please enter a valid email";
+			erroremail.innerText = "Please, Enter a valid email";
 			flag=false;
 		}
 
