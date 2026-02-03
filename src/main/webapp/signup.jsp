@@ -80,7 +80,7 @@ h1 {
 }
 
 button:focus {
-	background-color: pink;
+	background-color: pink ;
 }
 /*required symbol*/
 #star {
