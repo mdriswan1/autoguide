@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -35,7 +34,7 @@ public class VehicleDetailsDao {
 
 	public static String vehicleDetails(Integer type, Integer manufacturer, Integer model_name) {
 
-		List<AllVehicleDetails> all = new ArrayList<AllVehicleDetails>();
+		List<AllVehicleDetails> allVehicles = new ArrayList<AllVehicleDetails>();
 		ResultSet rs = null;
 		PreparedStatement ps = null;
 
@@ -75,20 +74,17 @@ public class VehicleDetailsDao {
 				rs = ps.executeQuery();
 				String image = "";
 				while (rs.next()) {
-					if (rs.getBytes("image_data") != null) {
-						image = Base64.getEncoder().encodeToString(rs.getBytes("image_data"));
-					}
 
-					AllVehicleDetails v = new AllVehicleDetails(image, rs.getString("type_name"), rs.getString("model_name"),
-									rs.getString("fuel_type"), rs.getInt("year_of_manuf"), rs.getInt("seating_capacity"),
-									rs.getString("engine_capacity"), rs.getInt("length_mm"), rs.getInt("width_mm"), rs.getInt("height_mm"),
-									rs.getString("description"), rs.getString("link"));
+					AllVehicleDetails v = new AllVehicleDetails(rs.getString("image_data"), rs.getString("type_name"),
+									rs.getString("model_name"), rs.getString("fuel_type"), rs.getInt("year_of_manuf"),
+									rs.getInt("seating_capacity"), rs.getString("engine_capacity"), rs.getInt("length_mm"),
+									rs.getInt("width_mm"), rs.getInt("height_mm"), rs.getString("description"), rs.getString("link"));
 
-					all.add(v);
+					allVehicles.add(v);
 
 				}
 				Gson gson = new Gson();
-				String json = gson.toJson(all);
+				String json = gson.toJson(allVehicles);
 				System.out.println(json);
 				logger.debug("get all the vehicle details using manufacturer and model_name ");
 				return json;
@@ -115,8 +111,8 @@ public class VehicleDetailsDao {
 
 			while (rs.next()) {
 
-				Welcome v1 = new Welcome(Base64.getEncoder().encodeToString(rs.getBytes("image_data")), rs.getString("model_name"),
-								rs.getString("fuel_type"), rs.getString("description"));
+				Welcome v1 = new Welcome(rs.getString("image_data"), rs.getString("model_name"), rs.getString("fuel_type"),
+								rs.getString("description"));
 				vehicles.add(v1);
 
 			}

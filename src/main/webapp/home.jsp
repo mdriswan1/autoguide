@@ -29,6 +29,7 @@ body {
 /*NAVBAR */
 
 .navbar {
+
     background-color: #222;
     color: white;
     padding: 15px 20px;
@@ -61,6 +62,7 @@ body {
 .container {
     width: 90%;
     margin: 20px auto;
+    animation:slideFadesIn 1s ease-out forwards;
 }
 
 /* FILTER BOX */
@@ -113,6 +115,7 @@ button:hover {
     border-radius: 6px;
     overflow: hidden;
     display: flex;
+    animation: slideFadesIn 1s ease-in forwards;
 }
 
 .vehicle-card img {
@@ -121,12 +124,35 @@ button:hover {
     object-fit:contain;
 }
 
+.vehicle-image {
+    background: linear-gradient(135deg, #f0f0f0, #e4e4e4);
+}
+
+.vehicle-card img {
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.vehicle-card:hover img {
+    transform: scale(1.04);
+}
+
+
+.vehicle-card:hover{
+   transform:translateY(-6px);
+   box-shadow:0 20px 45px rgba(0,0,0,0.18);
+}
 .vehicle-detail {
     padding: 15px;
     background: #f9f9f9;
     width: 100%;
 }
 
+.vehicle-detail a:hover {
+    background: rgba(190,190,190,0.6);
+    transform: translateY(-18px);
+    box-shadow:0 20px 45px rgba(0,0,0,0.18);
+}
 .vehicle-detail h4 {
     margin-top: 0;
 }
@@ -149,6 +175,16 @@ align-items: center;
     justify-content:space-around;
     align-items: center;
     
+}
+@keyframes slideFadesIn{
+ from{
+  opacity:0;
+  transform:translate(-50px);
+ }
+ to{
+ opacity:1;
+ transform:translate(0);
+ }
 }
 </style>
 </head>
@@ -316,14 +352,11 @@ function populateCards(data) {
 
         var v = data[i];
 
-        // If image exists use base64
-        var img="data:image/jpeg;base64," + v.vehicle_image;
-
         // Build HTML using string concatenation
         container.innerHTML +=
             '<div class="vehicle-card">' +
             '<div class="vehicle-image">'+
-                '<img src="' + img + '">' +'</div>'+
+                '<img src="' + v.vehicle_image + '">' +'</div>'+
                 '<div class="vehicle-detail">' +
                     '<h4>' + v.vehicle_name + '</h4>' +
                     '<p><b>Type:</b> ' + v.vehicle_type + '</p>' +
@@ -335,7 +368,7 @@ function populateCards(data) {
                         v.length_mm + ' × ' + v.width_mm + ' × ' + v.height_mm +
                     '</p>' +
                     '<p><b>Description:</b> ' + v.description + '</p>' +
-                    '<a href="'+v.link+'">about</a>'+
+                    '<a href="'+v.link+'">Click here for more details</a>'+
                 '</div>' +
             '</div>';
     }

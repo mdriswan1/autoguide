@@ -19,12 +19,11 @@ body {
 
 #full {
 	display: flex;
-	justify-content: center;
 	align-items: center;
 	height: 100vh;
 	width: 100vw;
 	background: white;
-	background-image: url("images/background.jpg");
+	background-image: url("images/car.jpg");
 	background-size: cover;
 	background-position: center center;
 	background-repeat: no-repeat;
@@ -33,14 +32,18 @@ body {
 #middle {
 	display: flex;
 	flex-direction: column;
+	position:relative;
+	left:140px;
+	bottom:40px;
 	justify-content: space-around;
 	align-items: center;
-	height: 85%;
+	height: 80%;
 	width: 40%;
 	border-radius: 20px;
-	background: rgba(150, 150, 150, 0.9);
+	background: rgba(150, 150, 150, 0.8);
 	border: 1px solid gray;
 	color: black;
+	animation:slideFadeIn 1s ease-out forwards;
 }
 
 form {
@@ -84,10 +87,12 @@ h1 {
 button:focus {
 	background-color: pink ;
 }
+
 /*required symbol*/
 #star {
 	color: rgb(220, 0, 0);
 }
+
 /*error message*/
 form p {
 	color: rgb(210, 0, 0);
@@ -96,6 +101,7 @@ form p {
 .inputerror{
    border:2px solid rgb(230, 0, 0);
 }
+
 /*header*/
 .navbar {
 	background-color: #333;
@@ -125,6 +131,16 @@ form p {
 .navbar form button:hover {
 	background-color: pink;
 	color: #333;
+}
+@keyframes slideFadeIn{
+ from{
+  opacity:0;
+  transform:translateY(50px);
+ }
+ to{
+ opacity:1;
+ transform:translateY(0);
+ }
 }
 </style>
 </head>

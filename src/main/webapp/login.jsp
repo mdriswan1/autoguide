@@ -1,5 +1,4 @@
 
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -15,41 +14,41 @@
 }
 
 body {
-	height: 100vh;
-	width: 100vw;
+	height:100vh;
+	background: white;
+	background-image: url("images/car.jpg");
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
 }
 
 #full {
 	display: flex;
-	justify-content: center;
 	align-items: center;
-	height: 100vh;
-	width: 100vw;
-	background: white;
-	background-image: url("images/background.jpg");
-	background-size: cover;
-	background-position: center center;
-	background-repeat: no-repeat;
+	height:100vh;
 }
 
 #middle {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
+	position:relative;
+	left:140px;
+	bottom:40px;
 	align-items: center;
 	height: 60%;
 	width: 30%;
 	border-radius: 20px;
-	background: rgba(150, 150, 150, 0.9);
+	background: rgba(150, 150, 150, 0.8);
 	border: 1px solid gray;
 	color: black;
+	animation:slideFadesIn 1s ease-out forwards;
 }
 /* form style*/
 form {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: space-between;
 	gap: 20px
 }
 
@@ -89,10 +88,12 @@ button:focus {
 	width: 12px;
 	height: 12px;
 }
+
 /* error message*/
 .inputerror{
    border:2px solid rgb(230, 0, 0);
 }
+
 #erroremail,#errorpassword{
 	
 	color: rgb(210, 0, 0);
@@ -128,6 +129,22 @@ button:focus {
 .navbar form button:hover {
 	background-color: pink;
 	color: #333;
+}
+@media (max-width:1000px) {
+	#middle{
+		height:50px;
+	}
+}
+@keyframes slideFadesIn{
+ from{
+  opacity:0;
+  transform:translateY(50px);
+ }
+ to{
+ opacity:1;
+ transform:translateY(0);
+ }
+}
 }
 </style>
 

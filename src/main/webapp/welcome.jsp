@@ -41,6 +41,7 @@ body {
 .navbar .nav-buttons button:hover {
 	background-color: white;
 	color: #333;
+	cursor:pointer;
 }
 .navbar #appname {
 	font-size: 24px;
@@ -52,6 +53,7 @@ body {
 .vehicles-container {
 	width: 90%;
 	margin: 30px auto;
+	animation: slideFadesIn 1s ease-out forwards;
 }
 
 .vehicle-card {
@@ -98,6 +100,7 @@ body {
 
 .signup-section button:hover {
 	background-color: #0056b3;
+	cursor:pointer;
 }
 
 /*------------footer--------------*/
@@ -115,6 +118,16 @@ body {
     justify-content:space-around;
     align-items: center;
     
+}
+@keyframes slideFadesIn{
+ from{
+  opacity:0;
+  transform:translate(-50px);
+ }
+ to{
+ opacity:1;
+ transform:translate(0);
+ }
 }
 </style>
 </head>
@@ -141,7 +154,6 @@ body {
 		<form action="controller" method="post">
 			<button type="submit" name="input" value="frontsignup">Signup</button>
 		</form>
-		<!--<a href="controller?input=frontsignup" >Sign Up Now</a> -->
 	</div>
 	<jsp:include page="footer.jsp" />
 	<!-- JavaScript to fetch API -->
@@ -162,7 +174,7 @@ body {
 
                         // image
                         let img = document.createElement('img');
-                        img.src = "data:image/jpeg;base64," + v.vehicleImage;
+                        img.src = v.vehicleImage;
                         img.alt = v.vehicleName;
 
                         // text details
