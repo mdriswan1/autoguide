@@ -72,7 +72,12 @@ body {
     border-radius: 6px;
     margin-bottom: 20px;
 }
-
+select {
+   cursor:pointer;
+}
+.option{
+  cursor:pointer;
+}
 .filter-row {
     display: flex;
     gap: 15px;
@@ -185,6 +190,7 @@ align-items: center;
  opacity:1;
  transform:translate(0);
  }
+}
 }
 </style>
 </head>

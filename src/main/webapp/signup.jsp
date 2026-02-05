@@ -142,6 +142,21 @@ form p {
  transform:translateY(0);
  }
 }
+/*password icon*/
+
+.password-wrapper {
+  position: relative;
+  display: inline-block;
+  width:100%;
+}
+.eye-icon {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
 </style>
 </head>
 <body>
@@ -169,10 +184,15 @@ form p {
 					<p id="erroremail"></p>
 				</div>
 				<div>
-					Password <span id="star">*</span>: <input type="password"
-						name="password" id="password">
-					<p id="errorpassword"></p>
+				<div>
+					Password <span id="star">*</span>:
 				</div>
+					<div class="password-wrapper">
+						    <input type="password" name="password" id="password">
+						    <span class="eye-icon" onclick="eyePassword()">👁️</span>
+					 </div>
+					  <p id="errorpassword"></p>
+				</div>				
 				<div>
 					Confirm Password <span id="star">*</span>: <input type="password"
 						name="confirmpassword" id="confirmpassword">
@@ -291,6 +311,15 @@ form p {
 			}
 			return flag;
 
+		}
+		function eyePassword(){
+			var pwd=document.getElementById("password");
+			if(pwd.type=="password"){
+				pwd.type="text";
+			}
+			else{
+				pwd.type="password";
+			}
 		}
 	</script>
 </body>
